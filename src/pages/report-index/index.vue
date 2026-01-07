@@ -39,7 +39,10 @@
     try {
       // 2. 模拟接口请求（换成你的真实接口）
       await new Promise(resolve =>
-        setTimeout(resolve, Math.floor(Math.random() * (2000 - 500 + 1)) + 500)
+        setTimeout(
+          resolve,
+          Math.floor(Math.random() * (2000 - 500 + 1)) + 500
+        )
       )
 
       // 3. 关闭 Loading
@@ -98,7 +101,7 @@
     </div>
 
     <!-- 底部按钮 -->
-    <div mt-20 flex justify-center>
+    <div mt="55px" flex justify-center>
       <div ai-gradient-btn @click="onSubmlt">Submlt</div>
     </div>
   </div>
@@ -110,7 +113,8 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     min-height: 100vh;
-    background: var(--ai-report-index-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 
   .top-select {

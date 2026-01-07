@@ -39,6 +39,8 @@
     bottomList.value = winDynamicData.filter(
       v => v.userId === userInfo.value.userId
     )
+    console.log(userInfo.value.avator)
+    console.log(userInfo.value.name)
     console.log(bottomList.value, '====')
     isShowFollow.value = useData.userInfo.follow.includes(
       userInfo.value.userId
@@ -117,7 +119,7 @@
     getData()
   })
 
-  const shouldShowReport = (item) => {
+  const shouldShowReport = item => {
     // 不显示自己
     return item.userId !== useData.userInfo.userId
   }
@@ -127,30 +129,37 @@
   <div v-if="!loading" class="other-home_box">
     <div class="top-user-info">
       <div class="avatar-info">
-        <van-image
-          round
-          ai-avatar
-          :src="userInfo.avator || Head"
-          fit="cover"
-          class="user-head"
-        />
-        <div h-2 w-20 relative>
+        <div>
           <van-image
-            v-if="!isShowFollow && shouldShowReport(userInfo)"
             round
-            bottom-2
-            left-14
-            absolute
-            :src="otherHomeAddIcon"
+            ai-avatar
+            :src="userInfo.avator"
             fit="cover"
-            @click="onFollow"
-            :style="{
-              width: 'var(--other-home-follow-width)',
-              height: 'var(--other-home-follow-height)'
-            }"
+            class="user-head"
           />
+          <div h-2 w-20 relative>
+            <van-image
+              v-if="!isShowFollow && shouldShowReport(userInfo)"
+              round
+              bottom-2
+              left-14
+              absolute
+              :src="otherHomeAddIcon"
+              fit="cover"
+              @click="onFollow"
+              :style="{
+                width: 'var(--other-home-follow-width)',
+                height: 'var(--other-home-follow-height)'
+              }"
+            />
+          </div>
         </div>
-        <span mt-1 ai-user-name>{{ userInfo.name }}</span>
+        <ul>
+          <li mt-1 ai-user-name>{{ userInfo.name }}</li>
+          <li font-400 color="white" fontsize="14px">
+            {{ userInfo.about }}
+          </li>
+        </ul>
       </div>
       <ul text-white flex justify-around class="number-box">
         <li>
@@ -167,19 +176,17 @@
         </li>
       </ul>
       <ul px-layout-padding class="bottom-box">
-        <li>{{ userInfo.about }}</li>
-        <li
-          v-if="shouldShowReport(userInfo)"
-        >
-          <van-image :src="otherHomeMessageIcon" class="icon-box" 
+        <div v-if="shouldShowReport(userInfo)" class="chat-button">
+          <van-image
+            :src="otherHomeMessageIcon"
+            class="icon-box"
             :style="{
               width: 'var(--other-home-chat-width)',
               height: 'var(--other-home-chat-height)'
-            }"/>
-          <span ml-3 class="public-number !mt-0" @click="onAddChat">
-            Chat
-          </span>
-        </li>
+            }"
+          />
+          <span class="public-number !mt-0" @click="onAddChat">Chat</span>
+        </div>
       </ul>
     </div>
 
@@ -192,15 +199,17 @@
         @click="onGoDetail(item)"
       >
         <ul class="top-info">
-          <!-- <li>
+          <li>
             <van-image round ai-avatar :src="Head" fit="cover" />
             <span mx-2 ai-user-name>Apien</span>
-            <span ai-tag-btn class="tag"># Theme</span>
-          </li> -->
+            <span ai-tag-btn class="tag">
+              # {{ item.dynamicTitleType }}
+            </span>
+          </li>
           <li />
           <li>
             <van-image
-              v-if="shouldShowReport(item)" 
+              v-if="shouldShowReport(item)"
               :src="reportIcon"
               :style="{
                 width: 'var(--report-image-width)',
@@ -218,7 +227,7 @@
         <ul class="bottom-img">
           <li w-full>
             <van-image
-              rounded-2
+              radius="20px"
               h-50
               w-full
               overflow-hidden
@@ -227,17 +236,17 @@
               position="top"
             />
           </li>
-          <!-- <li>
-            <van-image rounded-2 h-23.5 w-22 overflow-hidden :src="Head" fit="cover" />
-            <van-image rounded-2 h-23.5 w-22 overflow-hidden :src="Head" fit="cover" />
-          </li> -->
         </ul>
         <span class="bottom-text">{{ item.dynamicDesc }}</span>
         <div class="like-box">
-          <van-image :src="otherHomeLikeIcon" class="icon-box" :style="{
+          <van-image
+            :src="otherHomeLikeIcon"
+            class="icon-box"
+            :style="{
               width: 'var(--other-home-like-post-width)',
               height: 'var(--other-home-like-post-height)'
-            }"/>
+            }"
+          />
           <span class="public-number">{{ item.dynamicLikeCount }}</span>
         </div>
       </div>
@@ -250,11 +259,11 @@
 <style lang="less" scoped>
   .other-home_box {
     min-height: 100vh;
-    background: var(--ai-other-home-bg-color);
-  } 
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
+  }
 
   .top-user-info {
-    background: url('@/assets/public/top-home.png');
     background-size: cover;
     width: 100%;
     height: 346px;
@@ -262,10 +271,23 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .avatar-info {
+      margin-top: 20px;
+    }
+
     .bottom-box {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      .chat-button {
+        background-color: rgba(255, 255, 255, 0.15);
+        width: 100%;
+        height: 53;
+        align-items: center;
+        border-radius: 66px;
+        justify-content: center;
+      }
 
       li {
         color: var(--ai-other-home-right-desc-text-color);
@@ -312,15 +334,20 @@
   }
 
   .avatar-info {
-    padding: 96px 0 0;
+    padding: 58px 20px 0 20px;
+    gap: 15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 
     .user-head {
-      width: 83px;
-      height: 83px;
-      border: 3px solid #fff;
+      width: 80px;
+      height: 80px;
+      border: 3px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .ul {
+      gap: 8px;
     }
   }
 
@@ -330,13 +357,14 @@
     }
 
     .card-item {
-      background: rgba(40, 35, 41, 0.8);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 30px;
       position: relative;
       overflow: hidden;
 
       .top-info {
-        padding: 16px;
+        padding: 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -352,8 +380,9 @@
       }
 
       .bottom-img {
-        padding: 0 16px 16px;
+        padding: 0 32px 12px 12px;
         display: flex;
+        gap: 6px;
         justify-content: space-between;
 
         li {
@@ -368,8 +397,8 @@
         bottom: 0;
         background: linear-gradient(
           90deg,
-          #0e080f78 0%,
-          rgba(14, 8, 15, 0) 100%
+          rgba(14, 8, 15, 0.5) 0,
+          rgba(14, 8, 15, 0.5) 100%
         );
         height: 42px;
         width: 100%;
@@ -386,8 +415,8 @@
 
       .like-box {
         position: absolute;
-        bottom: 26px;
-        right: 10px;
+        bottom: 6px;
+        right: 11px;
         display: flex;
         flex-direction: column;
         align-self: center;

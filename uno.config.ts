@@ -39,11 +39,21 @@ export default defineConfig({
   },
   rules: [
     // 头像样式
-    ['ai-avatar', { width: 'var(--ai-avatar-width)', height: 'var(--ai-avatar-height)' }],
+    [
+      'ai-avatar',
+      {
+        width: 'var(--ai-avatar-width)',
+        height: 'var(--ai-avatar-height)'
+      }
+    ],
     // 用户名称样式
     [
       'ai-user-name',
-      { 'font-size': 'var(--ai-user-name-font-size)', 'font-weight': 'var(--ai-user-name-weight)', color: 'var(--ai-user-name-text-color)' }
+      {
+        'font-size': 'var(--ai-user-name-font-size)',
+        'font-weight': 'var(--ai-user-name-weight)',
+        color: 'var(--ai-user-name-text-color)'
+      }
     ],
     // 文本描述样式
     [
@@ -103,7 +113,6 @@ export default defineConfig({
       'ai-default-btn',
       {
         'font-size': 'var(--ai-form-btn-font-size)',
-        width: '107px',
         height: '40px',
         'line-height': '40px',
         'font-weight': 'var(--ai-form-btn-font-weight)',
@@ -117,8 +126,7 @@ export default defineConfig({
     [
       'ai-selected-btn',
       {
-        background:
-          'var(--ai-highlight-btn-bg-color)',
+        background: 'var(--ai-highlight-btn-bg-color)',
         color: 'var(--ai-highlight-btn-text-color)'
       }
     ],

@@ -4,7 +4,8 @@ export default [
     userId: 'u22',
     email: 'test@gmail.com',
     password: '',
-    avator: '',
+    avator:
+      'http://huanniuchat.oss-accelerate.aliyuncs.com/template_development/folik_avatar_4.jpg',
     name: 'laiyla1',
     about: '这个人很棒',
     coins: 0,

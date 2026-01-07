@@ -16,30 +16,41 @@
 
 <template>
   <div safe-area-inset-bottom px-layout-padding class="input-box">
-    <div class="input--width">
+    <div class="input-row" flex items-center>
+      <!-- 输入框占满剩余空间 -->
       <van-field
         v-model="value"
-        safe-area-inset-bottom
         placeholder="Say something"
-      >
-        <template #button>
-          <div flex items-center>
-            <van-image 
-              :src="inputSendIcon" 
-              @click="onSend"
-              :style="{
-                width: 'var(--comment-input-image-width)',
-                height: 'var(--comment-input-image-height)'
-              }"
-             />
-          </div>
-        </template>
-      </van-field>
+        :border="false"
+        class="flex-1"
+        :input-align="'left'"
+      />
+
+      <!-- 发送按钮 -->
+      <van-image
+        :src="inputSendIcon"
+        @click="onSend"
+        :style="{
+          width: 'var(--comment-input-image-width)',
+          height: 'var(--comment-input-image-height)',
+          marginLeft: '8px' // 按钮与输入框的间距
+        }"
+      />
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
+  .input-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 可选，控制输入框与按钮的间距 */
+    margin-bottom: 10px;
+  }
+  .flex-1 {
+    flex: 1;
+  }
   .input-box {
     position: fixed;
     bottom: 0;

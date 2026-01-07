@@ -49,7 +49,7 @@
         absolute
         class="bottom-[-64px]"
       >
-        <van-image 
+        <van-image
           :src="isLike ? likeIcon : detailLikeIcon"
           :style="{
             width: 'var(--unlike-image-width)',
@@ -64,29 +64,26 @@
       </div>
     </div>
 
-    <div mt-5 px-layout-padding w-full>
-      <ul flex>
+    <div mt-5 px-layout-padding w-full align-item="center">
+      <ul flex gap="12px">
         <li flex shrink flex-col items-center @click="onAvator">
           <van-image
             round
-            ai-avatar
+            width="48px"
             :src="dynamicInfo?.avator || Head"
             fit="cover"
           />
-          <span mt-1 ai-user-name>{{ dynamicInfo?.name }}</span>
         </li>
-        <li ml-5 class="w-[60%]">
-          <span ai-text-desc>{{ dynamicInfo?.dynamicDesc }}</span>
-          <p flex flex-wrap>
-            <span mr-2 mt-4 ai-tag-btn>
-              {{
-                winPublishImageListData[dynamicInfo?.dynamicTitleType]
-                  .name
-              }}
-            </span>
-          </p>
+        <span mt-2 ai-user-name>{{ dynamicInfo?.name }}</span>
+        <li>
+          <span mt-2 ai-tag-btn>
+            #{{
+              winPublishImageListData[dynamicInfo?.dynamicTitleType].name
+            }}
+          </span>
         </li>
       </ul>
+      <span mt="16px" ai-text-desc>{{ dynamicInfo?.dynamicDesc }}</span>
 
       <van-divider content-position="left">Comments</van-divider>
 
@@ -102,7 +99,8 @@
 
 <style lang="less" scoped>
   .article-detail_box {
-    background: var(--ai-article-detail-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
     min-height: 100vh;
   }
 
@@ -114,5 +112,5 @@
 
   .article-comment-card_box {
     padding-bottom: calc(80px + var(--ai-view-padding-bottom));
-  } 
+  }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { AppCommunication } from '@/hooks/useJump'
-  import RightIcon from '@/assets/public/right-icon.png'
+  import RightIcon from '@/assets/images/folick_ciwn_icon_rightarrow.png'
   import { useJump } from '@/hooks/useJump'
 
   defineOptions({
@@ -41,7 +41,7 @@
         @click="onSelect(item.value)"
       >
         <span>{{ item.label }}</span>
-        <van-image h-3 w-4 :src="RightIcon" fit="cover" />
+        <van-image height="24" width="24" :src="RightIcon" fit="fill" />
       </li>
     </ul>
 
@@ -71,7 +71,8 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     min-height: 100vh;
-    background: var(--ai-setting-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 
   .list-btn {

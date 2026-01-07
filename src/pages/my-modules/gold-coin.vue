@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import MasonryIcon from '@/assets/public/masonry-icon.png'
-  import MyIcon from '@/assets/public/my-icon.png'
+  import MasonryIcon from '@/assets/images/folick_ciwn_coin.png'
+  import MyIcon from '@/assets/images/folick_ciwn_coin.png'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -67,13 +67,18 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     min-height: 100vh;
-    background: var(--ai-coin-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 
   .top-box {
     border-radius: 20px;
-    background: url(https://img.js.design/assets/img/691aed6ab5e8b987e5484ce3.png#e628c21f3eda4f689fb2344148e7f297);
-    border: 4px solid rgba(255, 255, 255, 0.09);
+    background-color: rgba(34, 4, 112, 1);
+    background-image: radial-gradient(
+      ellipse at bottom center,
+      rgba(185, 1, 30, 1),
+      rgba(185, 1, 30, 0) 80%
+    );
     display: flex;
     align-items: center;
     padding: 20px;
@@ -84,6 +89,7 @@
     margin-top: 16px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+
     /* 每行 3 列，每列等宽 */
     gap: 10px;
     /* 可选：设置子项之间的间距 */
@@ -92,6 +98,7 @@
       width: var(--ai-coin-select-style-width);
       height: var(--ai-coin-select-style-height);
       display: flex;
+      border: 1px solid rgba(255, 255, 255, 0.4);
       flex-direction: column;
       align-items: center;
       justify-content: center;

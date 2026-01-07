@@ -71,6 +71,35 @@
       @click="togglePlay"
     />
     <div p-layout-padding class="bottom-box">
+      <ul class="bottom-btn">
+        <li>
+          <van-image
+            :src="isVideoLike ? likeIcon : detailLikeIcon"
+            class="icon-box"
+            :style="{
+              width: 'var(--unlike-image-width)',
+              height: 'var(--unlike-image-height)'
+            }"
+            @click="onVideoLike"
+          />
+          <span class="public-number">
+            {{ dynamicInfo?.dynamicLikeCount }}
+          </span>
+        </li>
+        <li @click="isPopup = true">
+          <van-image
+            :src="messageIcon"
+            class="icon-box"
+            :style="{
+              width: 'var(--video-details-comment-width)',
+              height: 'var(--video-details-comment-height)'
+            }"
+          />
+          <span class="public-number">
+            {{ dynamicInfo?.dynamicCommentCount }}
+          </span>
+        </li>
+      </ul>
       <div mb-5 flex>
         <div h-12 w-12 relative>
           <van-image
@@ -96,55 +125,28 @@
             }"
           />
         </div>
-        <ul ml-3 shrink w-full>
-          <li flex justify-between>
-            <span ai-user-name>{{ dynamicInfo?.name }}</span>
-            <van-image
-              v-if="userInfo.userId !== dynamicInfo?.userId"
-              :src="reportIcon"
-              :style="{
-                width: 'var(--report-image-width)',
-                height: 'var(--report-image-height)'
-              }"
-              @click="isReport = true"
-            />
-          </li>
-          <li>
-            <span mt-1 ai-text-desc>
-              {{ dynamicInfo?.dynamicDesc }}
-            </span>
-          </li>
+        <ul flex w-full items-center>
+          <ul ml-3 shrink w-full>
+            <li flex justify-between>
+              <span ai-user-name>{{ dynamicInfo?.name }}</span>
+            </li>
+            <li>
+              <span mt-1 ai-text-desc>
+                {{ dynamicInfo?.dynamicDesc }}
+              </span>
+            </li>
+          </ul>
+          <van-image
+            v-if="userInfo.userId !== dynamicInfo?.userId"
+            :src="reportIcon"
+            :style="{
+              width: 'var(--report-image-width)',
+              height: 'var(--report-image-height)'
+            }"
+            @click="isReport = true"
+          />
         </ul>
       </div>
-      <ul class="bottom-btn">
-        <li @click="isPopup = true">
-          <van-image 
-            :src="messageIcon" 
-            class="icon-box"
-            :style="{
-              width: 'var(--video-details-comment-width)',
-              height: 'var(--video-details-comment-height)'
-            }" 
-          />
-          <span class="public-number">
-            {{ dynamicInfo?.dynamicCommentCount }}
-          </span>
-        </li>
-        <li>
-          <van-image
-            :src="isVideoLike ? likeIcon : detailLikeIcon"
-            class="icon-box"
-            :style="{
-              width: 'var(--unlike-image-width)',
-              height: 'var(--unlike-image-height)'
-            }"
-            @click="onVideoLike"
-          />
-          <span class="public-number">
-            {{ dynamicInfo?.dynamicLikeCount }}
-          </span>
-        </li>
-      </ul>
     </div>
 
     <popup-box v-model:show="isPopup">
@@ -167,11 +169,13 @@
 <style lang="less" scoped>
   .video-comment-card_box {
     padding-bottom: calc(60px + var(--ai-view-padding-bottom));
-  }  
+  }
   .video-box {
     width: 100%;
     height: 100vh;
     position: relative;
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
 
     video {
       width: 100%;
@@ -184,8 +188,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 64px;
-      color: rgba(255, 255, 255, 0.7);
+      font-size: 60px;
+      color: rgb(255, 255, 255);
     }
 
     .bottom-box {
@@ -193,7 +197,11 @@
       bottom: 0;
       left: 0;
       right: 0;
-      // background: linear-gradient(180deg, rgba(14, 8, 15, 0.8) 0%, rgba(14, 8, 15, 0) 100%);
+      background: linear-gradient(
+        0deg,
+        rgba(14, 8, 15, 0.8) 0%,
+        rgba(14, 8, 15, 0) 100%
+      );
     }
 
     .user-head {
@@ -203,7 +211,11 @@
 
     .bottom-btn {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: end;
+      padding-bottom: 32px;
+
+      gap: 32px;
 
       li {
         position: relative;

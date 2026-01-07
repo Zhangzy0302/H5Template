@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import ChatBack from '@/assets/public/chat-index.png'
-  import MasonryIcon from '@/assets/public/masonry-icon.png'
+  import ChatBack from '@/assets/images/folick_ciwn_ai_chat_bg.png'
+  import MasonryIcon from '@/assets/images/folick_ciwn_coin.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
@@ -96,7 +96,8 @@
 
 <style lang="less" scoped>
   .chat-view_box {
-    background: var(--ai-chat-view-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
     height: 100vh;
     overflow-y: auto;
     .content_box {

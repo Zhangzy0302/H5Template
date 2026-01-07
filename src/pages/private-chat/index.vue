@@ -178,7 +178,6 @@
   }
 
   .top-chat-navbar {
-    background: url('@/assets/public/chat-nav-bar-bg.png');
     background-size: cover;
     --van-nav-bar-height: 104px;
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import EmptyIcon from '@/assets/public/empty-icon.png'
+  import EmptyIcon from '@/assets/images/folick_ciwn_empty_data.png'
 </script>
 
 <template>
@@ -9,3 +9,4 @@
 </template>
 
 <style lang="less" scoped></style>
+

@@ -40,9 +40,9 @@ window.reportListJson = window.reportListJson || ReportJson
 
 /** 发布图片选项 */
 window.publishImageListJson = window.publishImageListJson || [
-  { name: 'Hobbies', value: 0 },
-  { name: 'Passion', value: 1 },
-  { name: 'Inspire', value: 2 }
+  { name: 'Beginner photography', value: 0 },
+  { name: 'Shooting in backlighting', value: 1 },
+  { name: 'Outdoors', value: 2 }
 ]
 
 /** 聊天机器人说明 */

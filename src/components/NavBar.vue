@@ -41,10 +41,8 @@
 
   // 是否显示右侧按钮
   const isShowOther = computed(() => {
-    const show = ['OtherHome'].includes(
-      route.name as string
-    )
-    if (show) { 
+    const show = ['OtherHome'].includes(route.name as string)
+    if (show) {
       return queryId.value !== userInfo.userId
     }
     return show
@@ -118,14 +116,22 @@
   >
     <template v-if="showLeftArrow" #left>
       <div flex items-end justify-center>
-        <van-image 
-          :src="backIcon" 
+        <van-image
+          :src="backIcon"
           :style="{
             width: 'var(--back-image-width)',
-            height: 'var(--back-image-height)',
+            height: 'var(--back-image-height)'
           }"
         />
-        <span v-if="showTitle" ml-2 ai-user-name>{{ title }}</span>
+        <span
+          v-if="showTitle"
+          ml-2
+          font-600
+          color="white"
+          font-size="20px"
+        >
+          {{ title }}
+        </span>
       </div>
     </template>
     <template #right>

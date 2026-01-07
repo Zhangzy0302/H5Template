@@ -1,5 +1,10 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, showToast, closeToast } from 'vant'
+  import {
+    showLoadingToast,
+    showSuccessToast,
+    showToast,
+    closeToast
+  } from 'vant'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -85,7 +90,7 @@
       <!-- 主题选项 -->
       <div>
         <div ai-input-title>Topic</div>
-        <ul flex justify-between>
+        <ul flex flex-col gap="10px">
           <li
             v-for="item in winPublishImageListData"
             :key="item.value"
@@ -120,7 +125,9 @@
     padding-top: calc(
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
-    background: var(--ai-send-dynamic-bg-color);
+    padding-bottom: 60px;
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
     min-height: 100vh;
   }
 </style>

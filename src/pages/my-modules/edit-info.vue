@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { showSuccessToast,showLoadingToast,closeToast } from 'vant'
+  import { showSuccessToast, showLoadingToast, closeToast } from 'vant'
   import { reactive } from 'vue'
-  import defaultHead from '@/assets/public/default-head.png'
-  import upImg from '@/assets/public/up-img.png'
+  import defaultHead from '@/assets/images/folick_ciwn_default_avatar.png'
+  import upImg from '@/assets/images/folick_ciwn_avatar_change.png'
   import { useFile } from '@/hooks/useFile'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
@@ -78,7 +78,7 @@
         round
         h-20
         w-20
-        :src="imgUrl || defaultHead"
+        :src="userInfo.avator || defaultHead"
         fit="cover"
         @click="clickElement"
       />
@@ -126,6 +126,7 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     min-height: 100vh;
-    background: var(--ai-edit-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 </style>

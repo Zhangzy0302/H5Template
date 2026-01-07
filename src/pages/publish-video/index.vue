@@ -1,5 +1,10 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, showToast, closeToast } from 'vant'
+  import {
+    showLoadingToast,
+    showSuccessToast,
+    showToast,
+    closeToast
+  } from 'vant'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -111,6 +116,7 @@
     padding-top: calc(
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
-    background: var(--ai-publish-video-bg-color);
+    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 </style>
