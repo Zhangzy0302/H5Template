@@ -91,7 +91,7 @@ export default {
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
     borderRadius: '20px',
     fontSize: '16px',
-    fontWeight: '400',
+    fontWeight: '700',
     color: 'rgba(255, 255, 255, 1)'
   },
   /** 输入文本样式 */
@@ -113,11 +113,11 @@ export default {
   confirmBtnStyle: {
     backgroundColor:
       'radial-gradient(ellipse at bottom center, rgba(185, 1, 30, 1), rgba(185, 1, 30, 0) 80%), rgba(34, 4, 112, 1)',
-    borderRadius: '20px',
-    width: '182px',
-    height: '46px',
-    fontSize: '20px',
-    fontWeight: '400'
+    borderRadius: '30px',
+    width: '190px',
+    height: '54px',
+    fontSize: '16px',
+    fontWeight: '700'
   },
   /** 聊天列表样式 */
   chatListStyle: {
@@ -181,9 +181,8 @@ export default {
       /** 背景样式 */
       bgImageStyle: {
         width: '280px',
-        height: '210px',
-        bgImg:
-          'https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/sivio_ai_pay_bg.png'
+        height: '190px',
+        bgImg: 'src/assets/images/folick_ciwn_dialog_bg.png'
       }
     }
   },
@@ -205,8 +204,7 @@ export default {
   shortVideoStyle: {
     backgroundColor: '#0e080f',
     /** 添加图标 */
-    addIcon:
-      'https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/sivio_follow.png',
+    addIcon: 'src/assets/images/folik_ciw_icon_add_follow.png',
     addIconWidth: '20px',
     addIconHeight: '20px',
     /** 留言图标 */
@@ -304,9 +302,9 @@ export default {
     /** 按钮文本样式 */
     btnTextStyle: {
       backgroundColor:
-        'radial-gradient(ellipse at bottom center, rgba(185, 1, 30, 1), rgba(185, 1, 30, 0) 80%), rgba(34, 4, 112, 1)',
+        'rgba(34, 4, 112, 1), radial-gradient(ellipse at bottom center, rgba(185, 1, 30, 1), rgba(185, 1, 30, 0) 80%)',
       fontSize: '16px',
-      fontWeight: '400',
+      fontWeight: '700',
       color: '#fff'
     },
     /** 选择项样式 */

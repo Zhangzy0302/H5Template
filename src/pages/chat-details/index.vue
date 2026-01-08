@@ -125,16 +125,28 @@
     <div class="top-box">
       <ul p-layout-padding>
         <li>
-          <span>I'm feeling great today.</span>
-          <van-icon name="chat-o" />
+          <span>How to take backlit photos?</span>
+          <img
+            src="@/assets/images/folick_ciwn_ai_chatakjd.png"
+            class="msg-icon"
+            alt=""
+          />
         </li>
         <li>
-          <span>Do you like reading?</span>
-          <van-icon name="chat-o" />
+          <span>How to compose a photo?</span>
+          <img
+            src="@/assets/images/folick_ciwn_ai_chatakjd.png"
+            class="msg-icon"
+            alt=""
+          />
         </li>
         <li>
-          <span>Can you comfort me?</span>
-          <van-icon name="chat-o" />
+          <span>How to capture natural moments?</span>
+          <img
+            src="@/assets/images/folick_ciwn_ai_chatakjd.png"
+            class="msg-icon"
+            alt=""
+          />
         </li>
       </ul>
     </div>
@@ -153,35 +165,44 @@
   }
   .chat-details_box {
     min-height: 100vh;
-    background: var(--ai-chat-details-bg-color);
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
+      cover no-repeat;
   }
 
   .top-box {
     height: 282px;
-    background: url('@/assets/public/top-chat.png');
+    background: url('@/assets/images/folick_ciwn_ai_top_chat.png');
     background-size: cover;
     display: flex;
     align-items: flex-end;
 
+    .msg-icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 10px;
+    }
+
     ul {
-      li + li {
-        margin-top: 16px;
-      }
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px; // 代替 li + li
+      padding-left: 20px;
 
       li {
+        width: fit-content; /* 关键 */
+        max-width: 100%;
         border-radius: var(--ai-chat-details-top-border-radius);
         padding: 0 12px;
-        width: var(--ai-chat-details-top-width);
-        height: var(--ai-chat-details-top-height);
+        height: 36px;
         line-height: var(--ai-chat-details-top-height);
         font-size: var(--ai-chat-details-top-text-font-size);
         font-weight: var(--ai-chat-details-top-text-font-weight);
         background: var(--ai-chat-details-top-text-bg-color);
-        letter-spacing: 0;
         color: var(--ai-chat-details-top-text-color);
-        display: flex;
+        display: inline-flex; /* 改为 inline-flex */
         align-items: center;
         justify-content: space-between;
+        white-space: nowrap;
       }
     }
   }

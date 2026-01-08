@@ -76,22 +76,9 @@
         v-for="(item, index) in winReportListData"
         :key="index"
         @click="formData.select = index"
+        :class="{ selected: formData.select === index }"
       >
         <span>{{ item.reportContext }}</span>
-
-        <p class="selected-icon">
-          <van-image
-            :src="
-              formData.select === index ? SelectedIcon : defaultOptionIcon
-            "
-            fit="cover"
-          />
-          <van-icon
-            v-if="formData.select === index"
-            name="success"
-            class="success-icon"
-          />
-        </p>
       </li>
     </ul>
     <!-- 输入框 -->
@@ -102,7 +89,7 @@
 
     <!-- 底部按钮 -->
     <div mt="55px" flex justify-center>
-      <div ai-gradient-btn @click="onSubmlt">Submlt</div>
+      <div ai-gradient-btn @click="onSubmlt">Submit</div>
     </div>
   </div>
 </template>
@@ -124,16 +111,25 @@
     height: 368px;
 
     li {
-      width: var(--ai-report-index-select-style-width);
-      height: var(--ai-report-index-select-style-height);
-      border-radius: var(--ai-report-index-select-style-border-radius);
-      background: var(--ai-report-index-select-style-bg-color);
-      font-size: var(--ai-report-index-select-style-text-size);
+      width: 100%;
+      height: 63px;
+      border-radius: 60px;
+      background: #ffffff26;
+      font-size: 16px;
       color: var(--ai-report-index-select-style-text-color);
-      font-weight: var(--ai-report-index-select-style-text-weight);
+      font-weight: 600;
+      border: 1px solid #ffffff66;
       padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       overflow: hidden;
+
+      // 选中状态的样式
+      &.selected {
+        background: #ffffff66; /* 选中后的背景色（示例：蓝色），可自定义 */
+      }
 
       .selected-icon {
         position: absolute;

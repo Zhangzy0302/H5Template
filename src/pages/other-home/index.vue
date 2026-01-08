@@ -17,6 +17,7 @@
     otherHomeMessageIcon,
     otherHomeLikeIcon
   } = useAppImgStyle()
+  const { winPublishImageListData } = useWindow()
   const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
     useJump()
   const { winUserListData, winDynamicData, winChatListData } = useWindow()
@@ -137,22 +138,6 @@
             fit="cover"
             class="user-head"
           />
-          <div h-2 w-20 relative>
-            <van-image
-              v-if="!isShowFollow && shouldShowReport(userInfo)"
-              round
-              bottom-2
-              left-14
-              absolute
-              :src="otherHomeAddIcon"
-              fit="cover"
-              @click="onFollow"
-              :style="{
-                width: 'var(--other-home-follow-width)',
-                height: 'var(--other-home-follow-height)'
-              }"
-            />
-          </div>
         </div>
         <ul>
           <li mt-1 ai-user-name>{{ userInfo.name }}</li>
@@ -175,20 +160,37 @@
           <span>Follow</span>
         </li>
       </ul>
-      <ul px-layout-padding class="bottom-box">
-        <div v-if="shouldShowReport(userInfo)" class="chat-button">
-          <van-image
-            :src="otherHomeMessageIcon"
-            class="icon-box"
-            :style="{
-              width: 'var(--other-home-chat-width)',
-              height: 'var(--other-home-chat-height)'
-            }"
+      <div
+        flex
+        flex-decoration="row"
+        gap="11px"
+        m="0px 20px"
+        v-if="shouldShowReport(userInfo)"
+      >
+        <div class="follow-button" @click="onFollow" v-if="!isShowFollow">
+          <img
+            src="@/assets/images/folick_ciwn_icon_follow.png"
+            mode="cover"
           />
-          <span class="public-number !mt-0" @click="onAddChat">Chat</span>
+          <span>Follow</span>
         </div>
-      </ul>
+
+        <ul px-layout-padding class="bottom-box" @click="onAddChat">
+          <div v-if="shouldShowReport(userInfo)">
+            <van-image
+              :src="otherHomeMessageIcon"
+              class="icon-box"
+              :style="{
+                width: 'var(--other-home-chat-width)',
+                height: 'var(--other-home-chat-height)'
+              }"
+            />
+          </div>
+          <span class="public-number !mt-0">Chat</span>
+        </ul>
+      </div>
     </div>
+    <div font-600 color="white" font-size="20px" ml="20px">Post</div>
 
     <div p-layout-padding class="bottom-card">
       <!-- 内容卡片 -->
@@ -200,10 +202,15 @@
       >
         <ul class="top-info">
           <li>
-            <van-image round ai-avatar :src="Head" fit="cover" />
+            <van-image
+              round
+              ai-avatar
+              :src="userInfo.avator"
+              fit="cover"
+            />
             <span mx-2 ai-user-name>Apien</span>
-            <span ai-tag-btn class="tag">
-              # {{ item.dynamicTitleType }}
+            <span v-if="item.dynamicType === 0" class="theme-tag">
+              # {{ winPublishImageListData[item.dynamicTitleType].name }}
             </span>
           </li>
           <li />
@@ -225,7 +232,7 @@
           </li>
         </ul>
         <ul class="bottom-img">
-          <li w-full>
+          <li class="img-wrapper">
             <van-image
               radius="20px"
               h-50
@@ -234,6 +241,12 @@
               :src="item.dynamicPic[0] || Head"
               fit="cover"
               position="top"
+            />
+            <img
+              v-if="item.dynamicType === 1"
+              src="@/assets/images/folick_ciwn_icon_play.png"
+              class="play-icon"
+              alt=""
             />
           </li>
         </ul>
@@ -275,19 +288,48 @@
       margin-top: 20px;
     }
 
-    .bottom-box {
-      display: flex;
-      justify-content: space-between;
+    .follow-button {
+      height: 53px;
+      width: 100%;
+      background:
+        radial-gradient(
+          ellipse at bottom center,
+          rgba(185, 1, 30, 1),
+          rgba(185, 1, 30, 0) 80%
+        ),
+        rgba(34, 4, 112, 1);
+      border-radius: 60px;
+      justify-content: center;
       align-items: center;
 
-      .chat-button {
-        background-color: rgba(255, 255, 255, 0.15);
-        width: 100%;
-        height: 53;
-        align-items: center;
-        border-radius: 66px;
-        justify-content: center;
+      line-height: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+
+      img {
+        width: 20px;
+        height: 20px;
       }
+
+      span {
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .bottom-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background-color: rgba(255, 255, 255, 0.15);
+      height: 53px;
+      align-items: center;
+      gap: 6px;
 
       li {
         color: var(--ai-other-home-right-desc-text-color);
@@ -373,14 +415,19 @@
           display: flex;
           align-items: center;
 
-          .tag {
+          .theme-tag {
+            font-size: 12px;
+            font-weight: 400;
+            color: white;
+            padding: 5px 11px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.2);
           }
         }
       }
 
       .bottom-img {
-        padding: 0 32px 12px 12px;
+        padding: 0 12px 0px 12px;
         display: flex;
         gap: 6px;
         justify-content: space-between;
@@ -389,6 +436,21 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+        }
+        .img-wrapper {
+          position: relative;
+          width: 100%;
+        }
+
+        .play-icon {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 40px;
+          height: 40px;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+          pointer-events: none; /* 可选：防止挡点击 */
         }
       }
 

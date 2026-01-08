@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { showLoadingToast,showSuccessToast,closeToast } from 'vant'
+  import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
   import { detailId } from '@/hooks/useDetail'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
@@ -41,7 +41,10 @@
     try {
       // 2. 模拟异步（如果你后面接接口，这里直接 await 接口）
       await new Promise(resolve =>
-        setTimeout(resolve, Math.floor(Math.random() * (2000 - 500 + 1)) + 500)
+        setTimeout(
+          resolve,
+          Math.floor(Math.random() * (2000 - 500 + 1)) + 500
+        )
       )
 
       const userInfoId = detailId.value
@@ -79,10 +82,14 @@
   <van-popup v-model:show="show" round position="bottom">
     <ul class="report-box">
       <li>
-        <p ai-default-btn @click="onReport">Report</p>
+        <p ai-default-btn border="1px solid #FFFFFF66" @click="onReport">
+          Report
+        </p>
       </li>
       <li>
-        <p ai-default-btn @click="onShield">Shield</p>
+        <p ai-default-btn border="1px solid #FFFFFF66" @click="onShield">
+          Shield
+        </p>
       </li>
       <li>
         <p ai-default-btn ai-selected-btn @click="show = false">Cancel</p>
@@ -98,6 +105,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 0 30px;
+    background-color: #0e080fff;
 
     li + li {
       margin-top: 16px;

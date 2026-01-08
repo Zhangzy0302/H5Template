@@ -89,6 +89,7 @@
       height: var(--ai-setting-select-style-height);
       border-radius: var(--ai-setting-select-style-border-radius);
       background: var(--ai-setting-select-style-bg-color);
+      border: 1px solid rgba(255, 255, 255, 0.4);
 
       span {
         font-size: var(--ai-setting-select-style-text-size);

@@ -42,12 +42,11 @@
   <div relative class="chat-view_box">
     <van-image :src="ChatBack" fit="cover" class="top-back" />
     <div class="text-center w-full top-34vh absolute">
-      <ul p-layout-padding>
-        <li ai-input-title>{{ winChatBotDesc.title }}</li>
-        <li
-          ai-text-desc
-          class="mt-7 !text-[var(--ai-chat-view-text-color)] content_box"
-        >
+      <ul pl="68px" pr="68px">
+        <li font-600 font-size="30px" color="white">
+          {{ winChatBotDesc.title }}
+        </li>
+        <li ai-text-desc class="content_box">
           {{ winChatBotDesc.content }}
         </li>
         <li flex justify-center class="public-btoom-btn">
@@ -56,19 +55,13 @@
             class="bottom-btn public_btn"
             @click="onSubmit"
           >
-            <van-image h-12 w-12 :src="MasonryIcon" fit="cover" />
-            <span text-5 font-400 ml-1>
-              X {{ winChatBotDesc.points }}
+            <van-image h="34px" w="34px" :src="MasonryIcon" fit="cover" />
+            <span font-size="14px" color="#F9FF42FF" font-600 ml-1>
+              X{{ winChatBotDesc.points }}
             </span>
-            <span text-4 font-400 ml-8 mr-1>Chat</span>
-            <van-image
-              :src="chatBtnIcon"
-              fit="cover"
-              :style="{
-                width: 'var(--ai-btn-arr-image-width)',
-                height: 'var(--ai-btn-arr-image-height)'
-              }"
-            />
+            <span font-size="16px" font-700 ml="10px" color="white">
+              Chat
+            </span>
           </p>
         </li>
       </ul>
@@ -82,8 +75,10 @@
             class="content"
             style="background-size: cover"
           >
-            <span mt-18>Sorry</span>
-            <span mt-3>your current balance is insufficient</span>
+            <span mt-16>Sorry</span>
+            <span mt-3 font-size="14px" color="#0E080FFF">
+              your current balance is insufficient
+            </span>
           </div>
           <div mt-8 flex justify-center>
             <p ai-gradient-btn @click="jumpToRecharge()">Recharge</p>
@@ -96,13 +91,15 @@
 
 <style lang="less" scoped>
   .chat-view_box {
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
-      cover no-repeat;
     height: 100vh;
     overflow-y: auto;
     .content_box {
       background: var(--ai-chat-view-bg-color);
       padding-bottom: calc(50px + var(--ai-view-padding-bottom));
+      text-align: center;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 14px;
     }
   }
 
@@ -112,8 +109,8 @@
   }
 
   .bottom-btn {
-    width: var(--ai-chat-view-btn-width);
-    height: var(--ai-chat-view-btn-height);
+    width: 233px;
+    height: 56px;
     color: var(--ai-chat-view-text-color);
     display: flex;
     align-items: center;
@@ -133,9 +130,9 @@
       align-items: center;
 
       span {
-        color: var(--ai-chat-view-popup-title-text-color);
-        font-size: var(--ai-chat-view-popup-title-font-size);
-        font-weight: var(--ai-chat-view-popup-title-font-weight);
+        color: #0e080fff;
+        font-size: 20px;
+        font-weight: 600;
 
         &:nth-child(2) {
           color: var(--ai-chat-view-popup-desc-text-color);

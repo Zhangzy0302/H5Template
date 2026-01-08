@@ -26,7 +26,7 @@
       case 'follow':
         return 'minus'
       case 'fans':
-        return 'plus'
+        return 'minus'
       case 'blackList':
         return 'cross'
       default:

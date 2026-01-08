@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Head from '@/assets/public/ai-head.png'
+  import Head from '@/assets/images/folick_ciwn_ai_head.png'
 
   const listData = defineModel<MessageInfo[]>('list', {
     type: Array as PropType<MessageInfo[]>,
@@ -34,7 +34,16 @@
             fit="cover"
             class="user-head"
           />
-          <div v-if="item.sendContent" class="user-chat">
+          <div
+            v-if="item.sendContent"
+            class="user-chat"
+            :style="{
+              border:
+                item.position === 'left'
+                  ? '1px solid rgba(255, 255, 255, 0.4)'
+                  : ''
+            }"
+          >
             <p ai-text-desc>
               {{ item.sendContent }}
             </p>
@@ -104,20 +113,16 @@
 
   .user-chat {
     color: #fff;
-
+    border-radius: 30px;
     p {
       padding: 12px;
-      border-radius: 0px var(--ai-chat-list-avatar-border-radius)
-        var(--ai-chat-list-avatar-border-radius)
-        var(--ai-chat-list-avatar-border-radius);
-      background: var(--ai-chat-list-receive-bg-color);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
     }
   }
 
   .send-box {
     background: var(--ai-chat-list-send-bg-color) !important;
-    border-radius: var(--ai-chat-list-avatar-border-radius) 0px
-      var(--ai-chat-list-avatar-border-radius)
-      var(--ai-chat-list-avatar-border-radius) !important;
+    border-radius: 30px;
   }
 </style>

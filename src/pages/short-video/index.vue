@@ -205,8 +205,9 @@
     }
 
     .user-head {
-      width: var(--ai-short-video-avatar-width);
-      height: var(--ai-short-video-avatar-height);
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     .bottom-btn {
@@ -223,6 +224,7 @@
         height: var(--ai-short-video-bottom-btn-height);
         border-radius: var(--ai-short-video-bottom-btn-border-radius);
         background: var(--ai-short-video-bottom-btn-bg-color);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -232,6 +234,8 @@
           position: absolute;
           bottom: 26px;
           z-index: 1;
+          backdrop-filter: blur(8px); /* 模糊程度，数值越大越模糊 */
+          -webkit-backdrop-filter: blur(8px); /* 兼容iOS/Safari */
         }
 
         .public-number {

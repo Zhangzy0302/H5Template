@@ -27,11 +27,11 @@
     <div p-layout-padding>
       <ul class="top-box">
         <li>
-          <van-image h-20 w-20 :src="MasonryIcon" fit="cover" />
+          <van-image h="78px" w="78px" :src="MasonryIcon" fit="cover" />
         </li>
         <li ml-8 flex flex-col>
-          <span ai-user-name>My diamonds</span>
-          <span text-6 text-white font-medium>
+          <span font-size="16px" font-400 color="white">My Coins</span>
+          <span font-size="24px" text-white font-700>
             {{ userInfo.coins }}
           </span>
         </li>

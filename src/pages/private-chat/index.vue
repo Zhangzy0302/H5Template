@@ -3,7 +3,7 @@
   import RightMore from '@/assets/nav-bar/more.svg'
   import Head from '@/assets/public/Head.png'
   import ImgIcon from '@/assets/public/img-icon.png'
-  import VideoIcon from '@/assets/public/video-icon.png'
+  import VideoIcon from '@/assets/images/folick_ciwn_icon_video.png'
   import { detailId } from '@/hooks/useDetail'
   import { useFile } from '@/hooks/useFile'
   import { useJump } from '@/hooks/useJump'

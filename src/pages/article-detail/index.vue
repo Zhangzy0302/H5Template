@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import Head from '@/assets/public/Head.png'
-  import swipeOne from '@/assets/public/swipe-1.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useDetail } from '@/hooks/useDetail'
   import { useWindow } from '@/hooks/useWindow'
@@ -33,7 +31,7 @@
           <van-image
             h-full
             w-full
-            :src="item || swipeOne"
+            :src="item"
             fit="cover"
             position="top"
           />
@@ -65,19 +63,20 @@
     </div>
 
     <div mt-5 px-layout-padding w-full align-item="center">
-      <ul flex gap="12px">
+      <ul flex gap="12px" items-center>
         <li flex shrink flex-col items-center @click="onAvator">
           <van-image
             round
             width="48px"
-            :src="dynamicInfo?.avator || Head"
+            :src="dynamicInfo?.avator"
             fit="cover"
           />
         </li>
-        <span mt-2 ai-user-name>{{ dynamicInfo?.name }}</span>
+        <span ai-user-name>{{ dynamicInfo?.name }}</span>
         <li>
-          <span mt-2 ai-tag-btn>
-            #{{
+          <span class="theme-tag">
+            #
+            {{
               winPublishImageListData[dynamicInfo?.dynamicTitleType].name
             }}
           </span>
@@ -102,6 +101,14 @@
     background: url('src/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
     min-height: 100vh;
+    .theme-tag {
+      font-size: 12px;
+      font-weight: 400;
+      color: white;
+      padding: 5px 11px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+    }
   }
 
   .my-swipe {
