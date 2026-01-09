@@ -2,15 +2,16 @@
  * 全局图片配置项
  */
 
-import loveIcon from '@/assets/images/folick_ciwn_like_button_fill.png'
-import SendIcon from '@/assets/images/folick_ciwn_icon_send.png'
-import LeftIcon from '@/assets/images/folick_ciwn_icon_back.png'
-import RightMore from '@/assets/nav-bar/more.svg'
-import Add from '@/assets/images/folik_ciw_icon_add_follow.png'
-import DialogBox from '@/assets/images/folick_ciwn_dialog_bg.png'
-import Like from '@/assets/images/folick_ciwn_like_button.png'
 import Message from '@/assets/images/folick_ciwn_comment_button.png'
+import DialogBox from '@/assets/images/folick_ciwn_dialog_bg.png'
+import LeftIcon from '@/assets/images/folick_ciwn_icon_back.png'
+import Chat from '@/assets/images/folick_ciwn_icon_comment.png'
 import RightIcon from '@/assets/images/folick_ciwn_icon_rightarrow.png'
+import SendIcon from '@/assets/images/folick_ciwn_icon_send.png'
+import Like from '@/assets/images/folick_ciwn_like_button.png'
+import loveIcon from '@/assets/images/folick_ciwn_like_button_fill.png'
+import Add from '@/assets/images/folik_ciw_icon_add_follow.png'
+import RightMore from '@/assets/nav-bar/more.svg'
 
 export const useAppImgStyle = () => {
   /** 输入框右侧图标 */
@@ -41,7 +42,7 @@ export const useAppImgStyle = () => {
   /** 其它主页添加图标 */
   const otherHomeAddIcon = computed(() => Add)
   /** 其它主页留言图标 */
-  const otherHomeMessageIcon = computed(() => Message)
+  const otherHomeMessageIcon = computed(() => Chat)
   /** 其它主页点赞图标 */
   const otherHomeLikeIcon = computed(() => Like)
 
