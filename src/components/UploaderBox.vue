@@ -153,6 +153,9 @@
         font-size: 36px;
       }
     }
+    :deep(.van-uploader__file-name) {
+      display: none;
+    }
     :deep(.van-uploader__preview-delete) {
       top: -6px;
       right: -4px;
@@ -183,7 +186,7 @@
     :deep(.van-uploader__upload) {
       width: 103px;
       height: 103px;
-      background: rgba(255, 255, 255, 0.15);
+      background-color: rgba(255, 255, 255, 0.15);
       border-radius: 20px;
     }
   }
