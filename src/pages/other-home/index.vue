@@ -11,12 +11,8 @@
     name: 'other-home'
   })
 
-  const {
-    reportIcon,
-    otherHomeAddIcon,
-    otherHomeMessageIcon,
-    otherHomeLikeIcon
-  } = useAppImgStyle()
+  const { reportIcon, otherHomeMessageIcon, otherHomeLikeIcon } =
+    useAppImgStyle()
   const { winPublishImageListData } = useWindow()
   const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
     useJump()
@@ -166,13 +162,13 @@
         </li>
       </ul>
       <div
+        v-if="shouldShowReport(userInfo)"
         flex
         flex-decoration="row"
         gap="11px"
         m="0px 20px"
-        v-if="shouldShowReport(userInfo)"
       >
-        <div class="follow-button" @click="onFollow" v-if="!isShowFollow">
+        <div v-if="!isShowFollow" class="follow-button" @click="onFollow">
           <img
             src="@/assets/images/folick_ciwn_icon_follow.png"
             mode="cover"
