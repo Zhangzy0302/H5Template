@@ -4,26 +4,26 @@
  */
 export default {
   /** 返回按钮背景图 */
-  backImage: 'src/assets/images/folick_ciwn_icon_back.png',
+  backImage: '@/assets/images/folick_ciwn_icon_back.png',
   /** 返回图片大小 */
   backImageSize: {
     width: '24px',
     height: '24px'
   },
   /** 顶部右侧举报图片 */
-  reportImage: 'src/assets/images/folick_ciwn_icon_more_vertical.png',
+  reportImage: '@/assets/images/folick_ciwn_icon_more_vertical.png',
   /** 举报图标大小 */
   reportImageSize: {
-    width: '24px', //图标宽度
-    height: '24px' //图标高度
+    width: '24px', // 图标宽度
+    height: '24px' // 图标高度
   },
   /** 点赞图标 */
-  likeIcon: 'src/assets/images/folick_ciwn_like_button.png',
+  likeIcon: '@/assets/images/folick_ciwn_like_button.png',
 
   /** 点赞图标大小 */
   unlikeImageSize: {
-    width: '40px', //图标宽度
-    height: '40px' //图标高度
+    width: '40px', // 图标宽度
+    height: '40px' // 图标高度
   },
   /** 点赞数量文本样式 */
   likeNumTextStyle: {
@@ -67,7 +67,7 @@ export default {
     color: 'rgba(255, 255, 255, 0.8)',
     placeholderCorlor: 'rgba(255, 255, 255, 0.4)',
     /** 右侧发送图标 */
-    sendIcon: 'src/assets/images/folick_ciwn_icon_send.png',
+    sendIcon: '@/assets/images/folick_ciwn_icon_send.png',
     sendIconWidth: '46px',
     sendIconHeight: '46px'
   },
@@ -160,7 +160,7 @@ export default {
       width: '227px',
       height: '56px',
       color: 'rgba(255, 255, 255, 1)',
-      rightIcon: 'src/assets/images/folick_ciwn_icon_rightarrow.png',
+      rightIcon: '@/assets/images/folick_ciwn_icon_rightarrow.png',
       rightIconWidth: '21px',
       rightIconHeight: '21px'
     },
@@ -182,7 +182,7 @@ export default {
       bgImageStyle: {
         width: '280px',
         height: '190px',
-        bgImg: 'src/assets/images/folick_ciwn_dialog_bg.png'
+        bgImg: '@/assets/images/folick_ciwn_dialog_bg.png'
       }
     }
   },
@@ -204,15 +204,15 @@ export default {
   shortVideoStyle: {
     backgroundColor: '#0e080f',
     /** 添加图标 */
-    addIcon: 'src/assets/images/folik_ciw_icon_add_follow.png',
+    addIcon: '@/assets/images/folik_ciw_icon_add_follow.png',
     addIconWidth: '20px',
     addIconHeight: '20px',
     /** 留言图标 */
-    messageIcon: 'src/assets/images/folick_ciwn_comment_button.png',
+    messageIcon: '@/assets/images/folick_ciwn_comment_button.png',
     messageIconWidth: '40px',
     messageIconHeight: '40px',
     /** 点赞图标 */
-    likeIcon: 'src/assets/images/folick_ciwn_like_button_fill.png',
+    likeIcon: '@/assets/images/folick_ciwn_like_button_fill.png',
     avatarWidth: '40px',
     avatarHeight: '40px',
     /** 按钮样式 */
@@ -231,15 +231,15 @@ export default {
   otherHomeStyle: {
     backgroundColor: '#0e080f',
     /** 关注他人图标 */
-    addIcon: 'src/assets/images/folik_ciw_icon_add_follow.png',
+    addIcon: '@/assets/images/folik_ciw_icon_add_follow.png',
     addIconWidth: '20px',
     addIconHeight: '20px',
     /** 留言图标 */
-    messageIcon: 'src/assets/images/folick_ciwn_icon_comment.png',
+    messageIcon: '@/assets/images/folick_ciwn_icon_comment.png',
     messageIconWidth: '30px',
     messageIconHeight: '30px',
     /** 点赞图标 */
-    likeIcon: 'src/assets/images/folick_ciwn_like_button_fill.png',
+    likeIcon: '@/assets/images/folick_ciwn_like_button_fill.png',
     likeIconWidth: '40px',
     likeIconHeight: '40px',
     /** 顶部数据样式 */
