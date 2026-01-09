@@ -277,7 +277,7 @@
 <style lang="less" scoped>
   .other-home_box {
     min-height: 100vh;
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
   }
 

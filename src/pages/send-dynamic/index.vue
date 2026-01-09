@@ -126,7 +126,7 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     padding-bottom: 60px;
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
     min-height: 100vh;
   }

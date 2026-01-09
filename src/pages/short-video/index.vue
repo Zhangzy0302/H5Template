@@ -174,7 +174,7 @@
     width: 100%;
     height: 100vh;
     position: relative;
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
 
     video {

@@ -98,7 +98,7 @@
 
 <style lang="less" scoped>
   .article-detail_box {
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
     min-height: 100vh;
     .theme-tag {
