@@ -67,32 +67,67 @@ export const useFile = (cb?: UploadSuccessCallback) => {
     })
 
     try {
-      // 判断是否是视频
-      if (file.type.startsWith('video/')) {
-        const key = `template_development/${Date.now()}_${file.name}`
-        const coverBlob = await extractCoverFromVideo(file)
-        console.log(coverBlob)
-        // 构造 File 对象用于上传
-        const coverFile = new File([coverBlob], 'cover.jpg', {
-          type: 'image/jpeg',
-          lastModified: Date.now() // 防止缓存
-        })
-        const videoKey = `template_development/${Date.now()}_${coverFile.name}`
-        const result = await client.put(videoKey, coverFile)
-        const videoRes = await client.put(key, file)
-        item.objectUrl = result.url.replace(/^http:\/\//, https)
-        item.status = ''
-        return videoRes.url.replace(/^http:\/\//, https)
-      } else {
+      if (!file.type.startsWith('video/')) {
         const key = `template_development/${Date.now()}_${file.name}`
         const result = await client.put(key, file)
         return result.url.replace(/^http:\/\//, https)
       }
+
+      // 等待 Flutter 返回封面
+      const coverBlob: Blob = await new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error('获取封面超时'))
+        }, 10000) // 10秒超时
+
+        const handler = (e: any) => {
+          window.removeEventListener('video-cover-ready', handler)
+          clearTimeout(timeout)
+          const { cover } = e.detail
+          if (cover) {
+            const blob = base64ToBlob(cover, 'image/jpeg')
+            resolve(blob)
+          } else {
+            reject(new Error('Flutter 处理封面失败'))
+          }
+        }
+
+        window.addEventListener('video-cover-ready', handler)
+        extractCoverFromVideo(file) // 触发 Flutter 生成封面
+      })
+
+      // 构造 File 对象用于上传
+      const coverFile = new File([coverBlob], 'cover.jpg', {
+        type: 'image/jpeg',
+        lastModified: Date.now()
+      })
+
+      // 上传封面
+      const coverKey = `template_development/${Date.now()}_${coverFile.name}`
+      const coverResult = await client.put(coverKey, coverFile)
+
+      // 上传视频
+      const videoKey = `template_development/${Date.now()}_${file.name}`
+      const videoResult = await client.put(videoKey, file)
+
+      item.objectUrl = coverResult.url.replace(/^http:\/\//, https)
+      item.status = ''
+
+      return videoResult.url.replace(/^http:\/\//, https)
     } catch (err) {
       item.status = 'failed'
       item.message = 'Failed...'
       console.error(err)
       throw err
+    }
+
+    function base64ToBlob(base64: string, mime: string) {
+      const byteString = atob(base64.split(',')[1])
+      const ab = new ArrayBuffer(byteString.length)
+      const ia = new Uint8Array(ab)
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i)
+      }
+      return new Blob([ab], { type: mime })
     }
   }
 
