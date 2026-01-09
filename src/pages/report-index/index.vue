@@ -1,7 +1,5 @@
 <script setup lang="ts">
   import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
-  import defaultOptionIcon from '@/assets/public/default-option.png'
-  import SelectedIcon from '@/assets/public/selected.png'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
 
@@ -88,7 +86,7 @@
     </div>
 
     <!-- 底部按钮 -->
-    <div mt="55px" flex justify-center>
+    <div mt="55px" pb="40px" flex justify-center>
       <div ai-gradient-btn @click="onSubmlt">Submit</div>
     </div>
   </div>
@@ -100,7 +98,7 @@
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
     min-height: 100vh;
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
   }
 

@@ -39,6 +39,10 @@
     border-radius: 30px;
     .van-field {
       border-radius: 30px;
+      :deep(.van-field__word-limit) {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
 
     :deep(.van-cell) {

@@ -128,7 +128,12 @@
 
 <template>
   <div v-if="!loading" class="other-home_box">
-    <div class="top-user-info">
+    <div
+      class="top-user-info"
+      :style="{
+        height: shouldShowReport(userInfo) ? '346px' : '295px'
+      }"
+    >
       <div class="avatar-info">
         <div>
           <van-image
@@ -279,7 +284,6 @@
   .top-user-info {
     background-size: cover;
     width: 100%;
-    height: 346px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

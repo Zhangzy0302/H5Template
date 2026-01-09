@@ -100,7 +100,6 @@
   }
 
   .bottom-btn {
-    background-image: var(--ai-setting-btn-color) !important;
     font-size: var(--ai-setting-btn-text-size) !important;
     font-weight: var(--ai-setting-btn-text-weight) !important;
     color: var(--ai-setting-btn-text-color) !important;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { UploaderFileListItem } from 'vant'
-  import DeleteIcon from '@/assets/public/delete-icon.png'
+  import DeleteIcon from '@/assets/images/folik_ciw_icon_delete.png'
   import { useFile } from '@/hooks/useFile'
 
   const { uploadToOSS } = useFile()
@@ -101,7 +101,7 @@
         </div>
       </template>
       <template #preview-delete>
-        <van-image :src="DeleteIcon" />
+        <van-image width="24px" height="24px" :src="DeleteIcon" />
       </template>
     </van-uploader>
 
@@ -112,8 +112,6 @@
     >
       <div flex h-full items-center justify-center>
         <div h-36 w-full @click.stop>
-          <!--         :src="videoData.url"
-            :poster="videoData.objectUrl" -->
           <video
             v-if="videoData.show"
             :src="videoData.url"

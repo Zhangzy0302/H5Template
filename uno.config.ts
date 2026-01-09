@@ -134,12 +134,12 @@ export default defineConfig({
     [
       'ai-gradient-btn',
       {
-        width: 'var(--ai-confirm-btn-width)',
-        height: 'var(--ai-confirm-btn-height)',
-        'line-height': 'var(--ai-confirm-btn-height)',
-        'font-size': 'var(--ai-confirm-btn-font-size)',
+        width: '190px',
+        height: '54px',
+        'line-height': '54px',
+        'font-size': '16px',
         'text-align': 'center',
-        'font-weight': 'var(--ai-confirm-btn-font-weight)',
+        'font-weight': '700',
         'border-radius': 'var(--ai-confirm-btn-border-radius)',
         background: 'var(--ai-highlight-btn-bg-color)',
         color: 'var(--ai-highlight-btn-text-color)'

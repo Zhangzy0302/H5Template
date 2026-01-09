@@ -83,10 +83,10 @@
 
 <template>
   <div px-layout-padding class="publish-video_box">
-    <text-box v-model="formData.dynamicDesc" maxlength="50" rows="3" />
+    <text-box v-model="formData.dynamicDesc" maxlength="150" rows="4" />
 
     <!-- 视频上传 -->
-    <div my-6>
+    <div mt="24px">
       <div ai-input-title>Upload(video)</div>
       <uploader-box
         v-model:list="formData.dynamicPic"
@@ -116,7 +116,7 @@
     padding-top: calc(
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
-    background: url('src/assets/images/folick_ciwn_main_bg.png') center /
+    background: url('@/assets/images/folick_ciwn_main_bg.png') center /
       cover no-repeat;
   }
 </style>

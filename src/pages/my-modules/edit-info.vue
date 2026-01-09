@@ -23,6 +23,24 @@
     avator: ''
   })
 
+  watch(
+    () => userInfo,
+    user => {
+      if (!user) return
+      Object.assign(formData, {
+        name: user.name || '',
+        about: user.about || '',
+        avator: user.avator || ''
+      })
+    },
+    { immediate: true }
+  )
+
+  watch(imgUrl, val => {
+    if (!val) return
+    formData.avator = val
+  })
+
   const onSubmit = async () => {
     // 1. 显示 Loading
     showLoadingToast({
@@ -78,7 +96,7 @@
         round
         h-20
         w-20
-        :src="userInfo.avator || defaultHead"
+        :src="imgUrl || formData.avator || userInfo.avator || defaultHead"
         fit="cover"
         @click="clickElement"
       />
@@ -114,7 +132,7 @@
     </div>
 
     <!-- 底部按钮 -->
-    <div mt-50 flex justify-center>
+    <div mt-30 flex justify-center>
       <div ai-gradient-btn @click="onSubmit">Save</div>
     </div>
   </div>
