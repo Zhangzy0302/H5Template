@@ -10,6 +10,7 @@
       maxlength?: string | number
       rows?: string | number
       bg?: string
+      placeholderText?: string
     }>(),
     {
       maxlength: 150,
@@ -26,7 +27,7 @@
       :rows="props.rows"
       type="textarea"
       :maxlength="props.maxlength"
-      placeholder="Supplementary description (optional)"
+      :placeholder="props.placeholderText"
       show-word-limit
     />
     <!-- :style="{ background: props.bg }" -->

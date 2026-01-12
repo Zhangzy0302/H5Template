@@ -84,7 +84,10 @@
 <template>
   <div safe-area-inset-top px-layout-padding class="send-dynamic_box">
     <!-- 输入框 -->
-    <text-box v-model="formData.dynamicDesc" />
+    <text-box
+      v-model="formData.dynamicDesc"
+      placeholderText="Please enter"
+    />
 
     <div mt-9>
       <!-- 主题选项 -->

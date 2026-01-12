@@ -83,7 +83,12 @@
 
 <template>
   <div px-layout-padding class="publish-video_box">
-    <text-box v-model="formData.dynamicDesc" maxlength="150" rows="4" />
+    <text-box
+      v-model="formData.dynamicDesc"
+      maxlength="150"
+      rows="4"
+      placeholderText="Please enter"
+    />
 
     <!-- 视频上传 -->
     <div mt="24px">
