@@ -1,18 +1,18 @@
 // 举报选项
 export default [
   {
-    reportContext: '选项一'
+    reportContext: 'Harassment'
   },
   {
-    reportContext: '选项二'
+    reportContext: 'Malicious fraud'
   },
   {
-    reportContext: '选项三'
+    reportContext: 'Pornography'
   },
   {
-    reportContext: '选项四'
+    reportContext: 'Malicious insults'
   },
   {
-    reportContext: '选项五'
+    reportContext: 'False Information'
   }
 ] as ReportInfo[]

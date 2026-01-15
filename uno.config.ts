@@ -1,4 +1,5 @@
 import { createRemToPxProcessor } from '@unocss/preset-wind4/utils'
+import { pad } from 'lodash-es'
 
 import {
   defineConfig,
@@ -39,11 +40,21 @@ export default defineConfig({
   },
   rules: [
     // 头像样式
-    ['ai-avatar', { width: 'var(--ai-avatar-width)', height: 'var(--ai-avatar-height)' }],
+    [
+      'ai-avatar',
+      {
+        width: 'var(--ai-avatar-width)',
+        height: 'var(--ai-avatar-height)'
+      }
+    ],
     // 用户名称样式
     [
       'ai-user-name',
-      { 'font-size': 'var(--ai-user-name-font-size)', 'font-weight': 'var(--ai-user-name-weight)', color: 'var(--ai-user-name-text-color)' }
+      {
+        'font-size': 'var(--ai-user-name-font-size)',
+        'font-weight': 'var(--ai-user-name-weight)',
+        color: 'var(--ai-user-name-text-color)'
+      }
     ],
     // 文本描述样式
     [
@@ -62,14 +73,14 @@ export default defineConfig({
     [
       'ai-tag-btn',
       {
-        'font-size': 'var(--ai-tag-font-size)',
-        'font-weight': 'var(--ai-tag-font-weight)',
-        width: 'var(--ai-tag-width)',
-        height: 'var(--ai-tag-height)',
+        'font-size': '12px',
+        'font-weight': '400',
+        padding: '5px 10px',
+        border: '1px solid white',
         'line-height': 'var(--ai-tag-height)',
         display: 'block',
         color: 'var(--ai-tag-text-color)',
-        background: 'var(--ai-tag-bg-color)',
+        background: 'rgba(255, 255, 255, 0.1)',
         'text-align': 'center',
         'border-radius': 'var(--ai-tag-border-radius)'
       }
@@ -93,7 +104,7 @@ export default defineConfig({
       'ai-input-title',
       {
         'font-size': 'var(--ai-form-title-font-size)',
-        'font-weight': 'var(--ai-form-title-font-weight)',
+        'font-weight': '900',
         'margin-bottom': 'var(--ai-form-title-margin-bottom)',
         color: 'var(--ai-form-title-text-color)'
       }
@@ -117,8 +128,7 @@ export default defineConfig({
     [
       'ai-selected-btn',
       {
-        background:
-          'var(--ai-highlight-btn-bg-color)',
+        background: 'var(--ai-highlight-btn-bg-color)',
         color: 'var(--ai-highlight-btn-text-color)'
       }
     ],

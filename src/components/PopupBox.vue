@@ -1,15 +1,21 @@
 <script setup lang="ts">
-console.log('输入框')
+  console.log('输入框')
 
-const show = defineModel<boolean>('show', {
-  type: Boolean,
-  required: true,
-  default: false
-})
+  const show = defineModel<boolean>('show', {
+    type: Boolean,
+    required: true,
+    default: false
+  })
 </script>
 
 <template>
-  <van-popup v-model:show="show" safe-area-inset-top safe-area-inset-bottom round closeable position="bottom">
+  <van-popup
+    v-model:show="show"
+    safe-area-inset-top
+    safe-area-inset-bottom
+    round
+    position="bottom"
+  >
     <slot />
   </van-popup>
 </template>

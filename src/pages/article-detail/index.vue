@@ -49,7 +49,7 @@
         absolute
         class="bottom-[-64px]"
       >
-        <van-image 
+        <van-image
           :src="isLike ? likeIcon : detailLikeIcon"
           :style="{
             width: 'var(--unlike-image-width)',
@@ -88,7 +88,9 @@
         </li>
       </ul>
 
-      <van-divider content-position="left">Comments</van-divider>
+      <div font-900 color="white" font-size="16px" mt="24px" mb="20px">
+        Comments
+      </div>
 
       <comment-card
         :list="commentList"
@@ -114,5 +116,5 @@
 
   .article-comment-card_box {
     padding-bottom: calc(80px + var(--ai-view-padding-bottom));
-  } 
+  }
 </style>

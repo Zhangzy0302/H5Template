@@ -39,7 +39,10 @@
     try {
       // 2. 模拟接口请求（换成你的真实接口）
       await new Promise(resolve =>
-        setTimeout(resolve, Math.floor(Math.random() * (2000 - 500 + 1)) + 500)
+        setTimeout(
+          resolve,
+          Math.floor(Math.random() * (2000 - 500 + 1)) + 500
+        )
       )
 
       // 3. 关闭 Loading
@@ -76,30 +79,29 @@
       >
         <span>{{ item.reportContext }}</span>
 
-        <p class="selected-icon">
-          <van-image
-            :src="
-              formData.select === index ? SelectedIcon : defaultOptionIcon
-            "
-            fit="cover"
-          />
-          <van-icon
-            v-if="formData.select === index"
-            name="success"
+        <div class="selected-icon">
+          <div
             class="success-icon"
-          />
-        </p>
+            v-if="formData.select === index"
+          ></div>
+        </div>
       </li>
     </ul>
     <!-- 输入框 -->
-    <div mt-6>
+    <div>
       <div ai-input-title>Supplementary description</div>
       <text-box v-model="formData.title" rows="3" bg="#231e24" />
     </div>
 
     <!-- 底部按钮 -->
-    <div mt-20 flex justify-center>
-      <div ai-gradient-btn @click="onSubmlt">Submlt</div>
+    <div pt="32px" pb="40px" flex justify-center>
+      <GhwuadUdoahjfButton
+        @click="onSubmlt"
+        :width="182"
+        :height="46"
+        :is-blue="true"
+        text="Submit"
+      />
     </div>
   </div>
 </template>
@@ -123,24 +125,42 @@
       width: var(--ai-report-index-select-style-width);
       height: var(--ai-report-index-select-style-height);
       border-radius: var(--ai-report-index-select-style-border-radius);
-      background: var(--ai-report-index-select-style-bg-color);
+      background: linear-gradient(
+        90deg,
+        rgba(120, 223, 255, 0.064),
+        rgba(84, 105, 199, 0.05)
+      );
       font-size: var(--ai-report-index-select-style-text-size);
       color: var(--ai-report-index-select-style-text-color);
       font-weight: var(--ai-report-index-select-style-text-weight);
-      padding: 14px;
+      padding: 12px;
       position: relative;
       overflow: hidden;
 
       .selected-icon {
         position: absolute;
-        bottom: -6px;
-        right: 0;
+        bottom: 12px;
+        right: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        justify-content: center;
 
         .success-icon {
           position: absolute;
-          bottom: 10px;
-          right: 4px;
-          font-size: 24px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 14px;
+          height: 14px;
+          background: linear-gradient(
+            90deg,
+            rgba(29, 0, 217, 1),
+            rgba(151, 93, 227, 1)
+          );
+          border: 1px solid white;
+          border-radius: 30px;
         }
       }
     }

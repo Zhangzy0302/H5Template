@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import MasonryIcon from '@/assets/public/masonry-icon.png'
   import MyIcon from '@/assets/public/my-icon.png'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -24,18 +25,15 @@
 
 <template>
   <div safe-area-inset-top class="gold-coin_box">
-    <div p-layout-padding>
-      <ul class="top-box">
-        <li>
-          <van-image h-20 w-20 :src="MasonryIcon" fit="cover" />
-        </li>
-        <li ml-8 flex flex-col>
-          <span ai-user-name>My diamonds</span>
-          <span text-6 text-white font-medium>
+    <div p-layout-padding flex-col flex justify-center items-center>
+      <div class="top-box">
+        <li ml-auto mr="32px" flex flex-col>
+          <span font-size="20px" text-white font-medium>
             {{ userInfo.coins }}
           </span>
+          <div font-size="14px" color="#FFFFFFB2">My diamonds</div>
         </li>
-      </ul>
+      </div>
 
       <!-- 选项数据 -->
       <ul class="bottom-selsect">
@@ -54,26 +52,31 @@
       </ul>
 
       <!-- 按钮 -->
-      <div mt-6 flex justify-center>
-        <p ai-gradient-btn @click="onRecharge">Recharge</p>
-      </div>
+      <GhwuadUdoahjfButton
+        mt-6
+        pb-2
+        :width="182"
+        :height="46"
+        :is-blue="true"
+        @click="onRecharge"
+        text="Recharge"
+      />
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
   .gold-coin_box {
-    padding-top: calc(
-      var(--van-nav-bar-height) + var(--ai-view-padding-top)
-    );
+    padding-top: calc(var(--van-nav-bar-height) + 27px);
     min-height: 100vh;
     background: var(--ai-coin-bg-color);
   }
 
   .top-box {
-    border-radius: 20px;
-    background: url(https://img.js.design/assets/img/691aed6ab5e8b987e5484ce3.png#e628c21f3eda4f689fb2344148e7f297);
-    border: 4px solid rgba(255, 255, 255, 0.09);
+    background: url(@/assets/images/joii_wallet_top_bg.png) no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 111px;
     display: flex;
     align-items: center;
     padding: 20px;
@@ -106,6 +109,7 @@
     }
 
     .on-active {
+      border: 1px solid rgba(255, 255, 255, 0.6);
       background: var(--ai-coin-select-style-selected-color);
     }
   }

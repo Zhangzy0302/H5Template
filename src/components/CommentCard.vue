@@ -26,9 +26,7 @@
     <div
       v-for="(item, index) in props.list"
       :key="index"
-      p-4
       ai-fill-bg
-      ai-rounded
       class="card-comment"
     >
       <ul flex items-center justify-between>
@@ -42,7 +40,7 @@
           <span ml-3 ai-user-name>{{ item?.name || '' }}</span>
         </li>
         <li v-if="userInfo.userId !== item.userId" flex items-center>
-          <van-image 
+          <van-image
             :src="reportIcon"
             :style="{
               width: 'var(--report-image-width)',
@@ -65,7 +63,16 @@
 </template>
 
 <style lang="less" scoped>
+  .card-comment {
+    padding: 12px 12px 13px 16px;
+    border-radius: 12px;
+    background: linear-gradient(
+      90deg,
+      rgba(120, 223, 255, 0.064),
+      rgba(240, 243, 255, 0.05)
+    );
+  }
   .card-comment + .card-comment {
     margin-top: 12px;
-  } 
+  }
 </style>

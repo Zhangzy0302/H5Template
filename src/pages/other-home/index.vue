@@ -117,7 +117,7 @@
     getData()
   })
 
-  const shouldShowReport = (item) => {
+  const shouldShowReport = item => {
     // 不显示自己
     return item.userId !== useData.userInfo.userId
   }
@@ -168,14 +168,15 @@
       </ul>
       <ul px-layout-padding class="bottom-box">
         <li>{{ userInfo.about }}</li>
-        <li
-          v-if="shouldShowReport(userInfo)"
-        >
-          <van-image :src="otherHomeMessageIcon" class="icon-box" 
+        <li v-if="shouldShowReport(userInfo)">
+          <van-image
+            :src="otherHomeMessageIcon"
+            class="icon-box"
             :style="{
               width: 'var(--other-home-chat-width)',
               height: 'var(--other-home-chat-height)'
-            }"/>
+            }"
+          />
           <span ml-3 class="public-number !mt-0" @click="onAddChat">
             Chat
           </span>
@@ -200,7 +201,7 @@
           <li />
           <li>
             <van-image
-              v-if="shouldShowReport(item)" 
+              v-if="shouldShowReport(item)"
               :src="reportIcon"
               :style="{
                 width: 'var(--report-image-width)',
@@ -234,10 +235,14 @@
         </ul>
         <span class="bottom-text">{{ item.dynamicDesc }}</span>
         <div class="like-box">
-          <van-image :src="otherHomeLikeIcon" class="icon-box" :style="{
+          <van-image
+            :src="otherHomeLikeIcon"
+            class="icon-box"
+            :style="{
               width: 'var(--other-home-like-post-width)',
               height: 'var(--other-home-like-post-height)'
-            }"/>
+            }"
+          />
           <span class="public-number">{{ item.dynamicLikeCount }}</span>
         </div>
       </div>
@@ -251,10 +256,10 @@
   .other-home_box {
     min-height: 100vh;
     background: var(--ai-other-home-bg-color);
-  } 
+  }
 
   .top-user-info {
-    background: url('@/assets/public/top-home.png');
+    background: url('@/assets/images/joii_main_bg.png');
     background-size: cover;
     width: 100%;
     height: 346px;
@@ -269,18 +274,21 @@
 
       li {
         color: var(--ai-other-home-right-desc-text-color);
-        font-size: var(--ai-other-home-right-desc-text-weight);
-        font-weight: var(--ai-other-home-right-desc-text-size);
+        font-size: 14px;
+        font-weight: 400;
 
         &:nth-child(2) {
           margin-left: 10px;
-          width: var(--ai-other-home-right-btn-style-width);
-          height: var(--ai-other-home-right-btn-style-height);
+          width: 162px;
+          height: 53px;
           flex-shrink: 0;
-          border-radius: var(
-            --ai-other-home-right-btn-style-border-radius
+          border-radius: 66px;
+          border: 1px solid white;
+          background: linear-gradient(
+            135deg,
+            rgba(29, 0, 217, 1),
+            rgba(151, 93, 227, 1)
           );
-          background: var(--ai-other-home-right-btn-style-bg-color);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -326,12 +334,16 @@
 
   .bottom-card {
     .card-item + .card-item {
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
     .card-item {
-      background: rgba(40, 35, 41, 0.8);
-      border-radius: 20px;
+      background: linear-gradient(
+        90deg,
+        rgba(120, 223, 255, 0.064),
+        rgba(84, 105, 199, 0.05)
+      );
+      border-radius: 12px;
       position: relative;
       overflow: hidden;
 
@@ -368,8 +380,8 @@
         bottom: 0;
         background: linear-gradient(
           90deg,
-          #0e080f78 0%,
-          rgba(14, 8, 15, 0) 100%
+          rgba(14, 8, 15, 0.5) 0%,
+          rgba(14, 8, 15, 0.5) 100%
         );
         height: 42px;
         width: 100%;

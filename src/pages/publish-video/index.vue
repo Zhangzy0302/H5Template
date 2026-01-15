@@ -1,5 +1,10 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, showToast, closeToast } from 'vant'
+  import {
+    showLoadingToast,
+    showSuccessToast,
+    showToast,
+    closeToast
+  } from 'vant'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -81,7 +86,7 @@
     <text-box v-model="formData.dynamicDesc" maxlength="50" rows="3" />
 
     <!-- 视频上传 -->
-    <div my-6>
+    <div>
       <div ai-input-title>Upload(video)</div>
       <uploader-box
         v-model:list="formData.dynamicPic"
@@ -97,10 +102,14 @@
     </div> -->
 
     <!-- 底部按钮 -->
-    <div mt-20 flex justify-center class="public-btoom-btn">
-      <div ai-gradient-btn class="public_btn" @click="onSubmit">
-        Release
-      </div>
+    <div mt-auto pb="40px" flex justify-center class="public-btoom-btn">
+      <GhwuadUdoahjfButton
+        @click="onSubmit"
+        :width="182"
+        :height="46"
+        :is-blue="true"
+        text="Release"
+      />
     </div>
   </div>
 </template>

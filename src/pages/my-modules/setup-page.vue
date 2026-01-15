@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import type { AppCommunication } from '@/hooks/useJump'
-  import RightIcon from '@/assets/public/right-icon.png'
+  import RightIcon from '@/assets/images/joii_icon_arrow_right.png'
   import { useJump } from '@/hooks/useJump'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
 
   defineOptions({
     name: 'SetupPage'
@@ -33,7 +34,10 @@
 </script>
 
 <template>
-  <div safe-area-inset-top class="setup-page_box">
+  <div
+    safe-area-inset-top
+    class="setup-page_box flex flex-col min-h-screen"
+  >
     <ul p-layout-padding class="list-btn">
       <li
         v-for="item in listData"
@@ -41,27 +45,31 @@
         @click="onSelect(item.value)"
       >
         <span>{{ item.label }}</span>
-        <van-image h-3 w-4 :src="RightIcon" fit="cover" />
+        <van-image h="24px" w="24px" :src="RightIcon" fit="cover" />
       </li>
     </ul>
 
     <!-- 按钮 -->
-    <ul mt-60>
-      <li flex justify-center>
-        <p
-          ai-gradient-btn
-          class="bottom-btn"
+    <div flex flex-col items-center gap="16px" mt-auto pb="40px">
+      <div>
+        <GhwuadUdoahjfButton
           @click="onState('deleteaccount')"
-        >
-          Delete account
-        </p>
-      </li>
-      <li mt-5 flex justify-center>
-        <p ai-gradient-btn class="bottom-btn" @click="onState('logout')">
-          Log out
-        </p>
-      </li>
-    </ul>
+          :width="182"
+          :height="46"
+          :is-blue="false"
+          text="Delete account"
+        />
+      </div>
+      <div>
+        <GhwuadUdoahjfButton
+          @click="onState('logout')"
+          :width="182"
+          :height="46"
+          :is-blue="false"
+          text="Log out"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

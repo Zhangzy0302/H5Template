@@ -64,67 +64,24 @@
       height="100%"
       @click="togglePlay"
     />
+    <div class="gradient-overlay"></div>
     <van-icon
       v-if="!isPlaying"
       :name="isPlaying ? 'pause-circle' : 'play-circle'"
       class="play-box"
       @click="togglePlay"
     />
+
     <div p-layout-padding class="bottom-box">
-      <div mb-5 flex>
-        <div h-12 w-12 relative>
-          <van-image
-            round
-            ai-avatar
-            :src="dynamicInfo?.avator || Head"
-            fit="cover"
-            class="user-head"
-            @click="onAvator"
-          />
-          <van-image
-            v-if="!isFollow && userInfo.userId !== dynamicInfo?.userId"
-            round
-            right-3
-            top-9.5
-            absolute
-            :src="addIcon"
-            fit="cover"
-            @click="onFollow"
-            :style="{
-              width: 'var(--video-details-follow-width)',
-              height: 'var(--video-details-follow-height)'
-            }"
-          />
-        </div>
-        <ul ml-3 shrink w-full>
-          <li flex justify-between>
-            <span ai-user-name>{{ dynamicInfo?.name }}</span>
-            <van-image
-              v-if="userInfo.userId !== dynamicInfo?.userId"
-              :src="reportIcon"
-              :style="{
-                width: 'var(--report-image-width)',
-                height: 'var(--report-image-height)'
-              }"
-              @click="isReport = true"
-            />
-          </li>
-          <li>
-            <span mt-1 ai-text-desc>
-              {{ dynamicInfo?.dynamicDesc }}
-            </span>
-          </li>
-        </ul>
-      </div>
       <ul class="bottom-btn">
         <li @click="isPopup = true">
-          <van-image 
-            :src="messageIcon" 
+          <van-image
+            :src="messageIcon"
             class="icon-box"
             :style="{
               width: 'var(--video-details-comment-width)',
               height: 'var(--video-details-comment-height)'
-            }" 
+            }"
           />
           <span class="public-number">
             {{ dynamicInfo?.dynamicCommentCount }}
@@ -145,6 +102,54 @@
           </span>
         </li>
       </ul>
+      <div mb-5 mt="32px" flex items-center justify-between>
+        <div flex items-center>
+          <div h-12 w-12 relative>
+            <van-image
+              round
+              ai-avatar
+              :src="dynamicInfo?.avator || Head"
+              fit="cover"
+              class="user-head"
+              @click="onAvator"
+            />
+            <van-image
+              v-if="!isFollow && userInfo.userId !== dynamicInfo?.userId"
+              round
+              right-3
+              top-9.5
+              absolute
+              :src="addIcon"
+              fit="cover"
+              @click="onFollow"
+              :style="{
+                width: 'var(--video-details-follow-width)',
+                height: 'var(--video-details-follow-height)'
+              }"
+            />
+          </div>
+          <ul ml-3 shrink w-full>
+            <li>
+              <span ai-user-name>{{ dynamicInfo?.name }}</span>
+            </li>
+            <li>
+              <span mt-1 ai-text-desc>
+                {{ dynamicInfo?.dynamicDesc }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <van-image
+          v-if="userInfo.userId !== dynamicInfo?.userId"
+          :src="reportIcon"
+          mr="8px"
+          :style="{
+            width: 'var(--report-image-width)',
+            height: 'var(--report-image-height)'
+          }"
+          @click="isReport = true"
+        />
+      </div>
     </div>
 
     <popup-box v-model:show="isPopup">
@@ -167,7 +172,7 @@
 <style lang="less" scoped>
   .video-comment-card_box {
     padding-bottom: calc(60px + var(--ai-view-padding-bottom));
-  }  
+  }
   .video-box {
     width: 100%;
     height: 100vh;
@@ -179,6 +184,20 @@
       background: var(--ai-short-video-bg-color);
     }
 
+    .gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(
+        to top,
+        rgba(14, 8, 15, 0.8) 0%,
+        rgba(14, 8, 15, 0) 100%
+      );
+      pointer-events: none; // 允许点击穿透到下方元素
+    }
+
     .play-box {
       position: absolute;
       top: 50%;
@@ -188,43 +207,49 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
+    .user-head {
+      width: 48px;
+      height: 48px;
+      border: 1px solid white;
+    }
+
     .bottom-box {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      // background: linear-gradient(180deg, rgba(14, 8, 15, 0.8) 0%, rgba(14, 8, 15, 0) 100%);
-    }
-
-    .user-head {
-      width: var(--ai-short-video-avatar-width);
-      height: var(--ai-short-video-avatar-height);
-    }
-
-    .bottom-btn {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: space-between; // 或者使用 flex-end
+      align-items: stretch;
 
-      li {
-        position: relative;
-        width: var(--ai-short-video-bottom-btn-width);
-        height: var(--ai-short-video-bottom-btn-height);
-        border-radius: var(--ai-short-video-bottom-btn-border-radius);
-        background: var(--ai-short-video-bottom-btn-bg-color);
+      .bottom-btn {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        gap: 45px;
+        margin-left: auto; // 将按钮组推到右侧
 
-        .icon-box {
-          position: absolute;
-          bottom: 26px;
-          z-index: 1;
-        }
+        li {
+          position: relative;
+          width: var(--ai-short-video-bottom-btn-width);
+          height: var(--ai-short-video-bottom-btn-height);
+          border-radius: var(--ai-short-video-bottom-btn-border-radius);
+          background: var(--ai-short-video-bottom-btn-bg-color);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
 
-        .public-number {
-          font-size: 20px !important;
-          margin-top: 22px;
+          .icon-box {
+            position: absolute;
+            bottom: 26px;
+            z-index: 1;
+          }
+
+          .public-number {
+            font-size: 20px !important;
+            margin-top: 22px;
+          }
         }
       }
     }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { showLoadingToast,showSuccessToast,closeToast } from 'vant'
+  import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
   import { detailId } from '@/hooks/useDetail'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
@@ -41,7 +41,10 @@
     try {
       // 2. 模拟异步（如果你后面接接口，这里直接 await 接口）
       await new Promise(resolve =>
-        setTimeout(resolve, Math.floor(Math.random() * (2000 - 500 + 1)) + 500)
+        setTimeout(
+          resolve,
+          Math.floor(Math.random() * (2000 - 500 + 1)) + 500
+        )
       )
 
       const userInfoId = detailId.value
@@ -77,21 +80,40 @@
 
 <template>
   <van-popup v-model:show="show" round position="bottom">
-    <ul class="report-box">
-      <li>
-        <p ai-default-btn @click="onReport">Report</p>
-      </li>
-      <li>
-        <p ai-default-btn @click="onShield">Shield</p>
-      </li>
-      <li>
-        <p ai-default-btn ai-selected-btn @click="show = false">Cancel</p>
-      </li>
-    </ul>
+    <div position="relative">
+      <div class="report-box_bg"></div>
+      <ul class="report-box">
+        <li>
+          <p ai-default-btn @click="onReport">Report</p>
+        </li>
+        <li>
+          <p ai-default-btn @click="onShield">Shield</p>
+        </li>
+        <li>
+          <GhwuadUdoahjfButton
+            @click="show = false"
+            :width="182"
+            :height="46"
+            :is-blue="true"
+            text="Cancel"
+          />
+        </li>
+      </ul>
+    </div>
   </van-popup>
 </template>
 
 <style lang="less" scoped>
+  .report-box_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 204px;
+    background: url('@/assets/images/joii_main_bg.png');
+    opacity: 0.4;
+    background-size: cover;
+  }
   .report-box {
     display: flex;
     flex-direction: column;

@@ -28,23 +28,22 @@ html.dark {
 
 // 通用数字显示
 .public-number {
-  margin-top: 4px;
   font-size: 20px;
   font-weight: 900;
   letter-spacing: 0px;
-  line-height: 21.2px;
+  line-height: 24px;
   text-align: center;
   vertical-align: top;
 
-  background: linear-gradient(150deg,
-      rgb(71, 252, 255) 0%,
-      rgb(255, 94, 135) 100%);
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(179, 125, 250, 1) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-
-  -webkit-text-stroke: 1px #fff;
 }
 
 // 通用输入框
@@ -70,9 +69,11 @@ html.dark {
   left: 0;
   width: 100%;
   opacity: 1;
-  background: linear-gradient(0deg,
-      rgba(14, 8, 15, 0.8) 0%,
-      rgba(14, 8, 15, 0) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(14, 8, 15, 0.8) 0%,
+    rgba(14, 8, 15, 0) 100%
+  );
 
   .public_btn {
     margin-bottom: calc(10px + var(--ai-view-padding-bottom));
