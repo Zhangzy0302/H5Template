@@ -79,15 +79,17 @@
 </script>
 
 <template>
-  <van-popup v-model:show="show" round position="bottom">
+  <van-popup v-model:show="show" position="bottom">
     <div position="relative">
       <div class="report-box_bg"></div>
       <ul class="report-box">
-        <li>
-          <p ai-default-btn @click="onReport">Report</p>
+        <!-- 拖拽条 -->
+        <div class="drag-handle" />
+        <li @click="onReport">
+          <p ai-default-btn>Report</p>
         </li>
-        <li>
-          <p ai-default-btn @click="onShield">Shield</p>
+        <li @click="onShield">
+          <p ai-default-btn>Shield</p>
         </li>
         <li>
           <GhwuadUdoahjfButton
@@ -115,11 +117,20 @@
     background-size: cover;
   }
   .report-box {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0 30px;
+    padding: 0 0 30px;
+
+    .drag-handle {
+      width: 48px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+      margin: 8px auto 20px;
+    }
 
     li + li {
       margin-top: 16px;

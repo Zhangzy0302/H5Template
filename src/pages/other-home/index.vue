@@ -19,7 +19,12 @@
   } = useAppImgStyle()
   const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
     useJump()
-  const { winUserListData, winDynamicData, winChatListData } = useWindow()
+  const {
+    winUserListData,
+    winDynamicData,
+    winChatListData,
+    winPublishImageListData
+  } = useWindow()
   const useData = useUserStore()
 
   // 举报弹框
@@ -150,7 +155,9 @@
             }"
           />
         </div>
-        <span mt-1 ai-user-name>{{ userInfo.name }}</span>
+        <span mt-1 color="white" fw-600 font-size="16px">
+          {{ userInfo.name }}
+        </span>
       </div>
       <ul text-white flex justify-around class="number-box">
         <li>
@@ -168,7 +175,7 @@
       </ul>
       <ul px-layout-padding class="bottom-box">
         <li>{{ userInfo.about }}</li>
-        <li v-if="shouldShowReport(userInfo)">
+        <li v-if="shouldShowReport(userInfo)" @click="onAddChat">
           <van-image
             :src="otherHomeMessageIcon"
             class="icon-box"
@@ -177,12 +184,12 @@
               height: 'var(--other-home-chat-height)'
             }"
           />
-          <span ml-3 class="public-number !mt-0" @click="onAddChat">
-            Chat
-          </span>
+          <span ml-3 class="public-number !mt-0">Chat</span>
         </li>
       </ul>
     </div>
+
+    <div class="post_title">Post</div>
 
     <div p-layout-padding class="bottom-card">
       <!-- 内容卡片 -->
@@ -193,11 +200,13 @@
         @click="onGoDetail(item)"
       >
         <ul class="top-info">
-          <!-- <li>
+          <li>
             <van-image round ai-avatar :src="Head" fit="cover" />
             <span mx-2 ai-user-name>Apien</span>
-            <span ai-tag-btn class="tag"># Theme</span>
-          </li> -->
+            <span ai-tag-btn class="tag" v-if="item.dynamicType === 0">
+              # {{ winPublishImageListData[item?.dynamicTitleType].name }}
+            </span>
+          </li>
           <li />
           <li>
             <van-image
@@ -217,7 +226,7 @@
           </li>
         </ul>
         <ul class="bottom-img">
-          <li w-full>
+          <li w-full relative>
             <van-image
               rounded-2
               h-50
@@ -227,11 +236,16 @@
               fit="cover"
               position="top"
             />
+            <img
+              v-if="item.dynamicType === 1"
+              src="@/assets/images/joii_icon_play.png"
+              width="40px"
+              height="40px"
+              absolute
+              class="top-[45%] left-[45%]"
+              alt=""
+            />
           </li>
-          <!-- <li>
-            <van-image rounded-2 h-23.5 w-22 overflow-hidden :src="Head" fit="cover" />
-            <van-image rounded-2 h-23.5 w-22 overflow-hidden :src="Head" fit="cover" />
-          </li> -->
         </ul>
         <span class="bottom-text">{{ item.dynamicDesc }}</span>
         <div class="like-box">
@@ -297,22 +311,20 @@
     }
 
     .number-box {
-      margin: 6px 0;
-
       li {
         display: flex;
         flex-direction: column;
         align-items: center;
 
         span {
-          font-size: var(--ai-other-home-top-data-desc-text-size);
-          font-weight: var(--ai-other-home-top-data-desc-text-weight);
+          font-size: 18px;
+          font-weight: 900;
           color: var(--ai-other-home-top-data-desc-text-color);
 
           &:nth-child(2) {
             font-size: var(--ai-other-home-top-data-text-text-size);
             font-weight: var(--ai-other-home-top-data-text-text-weight);
-            color: var(--ai-other-home-top-data-text-text-color);
+            color: rgba(255, 255, 255, 0.6);
           }
         }
       }
@@ -330,6 +342,16 @@
       height: 83px;
       border: 3px solid #fff;
     }
+  }
+
+  .post_title {
+    /** 文本1 */
+    padding: 20px 24px 0 16px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    line-height: 23.48px;
+    color: rgba(255, 255, 255, 1);
   }
 
   .bottom-card {

@@ -26,7 +26,7 @@
       case 'follow':
         return 'minus'
       case 'fans':
-        return 'plus'
+        return 'minus'
       case 'blackList':
         return 'cross'
       default:
@@ -74,18 +74,17 @@
     <div
       v-for="(item, index) in listData"
       :key="index"
-      px-4
-      py-3
       flex
       items-center
       justify-between
-      class="list-box rounded-[20px] bg-[#282329cc]"
+      class="list-box rounded-[12px] bg-[#282329cc]"
     >
       <ul>
         <li flex items-center>
           <van-image
             round
             ai-avatar
+            class="border-[0.8px] border-[#fff]"
             :src="item.avator || Head"
             fit="cover"
           />
@@ -105,6 +104,14 @@
 </template>
 
 <style lang="less" scoped>
+  .list-box {
+    padding: 12px 24px 12px 16px;
+    background: linear-gradient(
+      138.51deg,
+      rgba(120, 223, 255, 0.06) 0%,
+      rgba(240, 243, 255, 0.05) 100%
+    );
+  }
   .list-box + .list-box {
     margin-top: 16px;
   }

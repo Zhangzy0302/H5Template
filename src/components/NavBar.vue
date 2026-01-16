@@ -110,6 +110,7 @@
     :fixed="true"
     :border="false"
     clickable
+    z-24
     safe-area-inset-top
     :class="{ 'top-nav-bar_box': showNavBarStyle }"
     @click-left="onBack"

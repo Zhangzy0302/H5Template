@@ -5,7 +5,7 @@
     width?: number
     height?: number
     isBlue?: boolean
-    text: string
+    text?: string
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -30,7 +30,10 @@
 </script>
 
 <template>
-  <div class="stack-container">
+  <div
+    class="stack-container"
+    :style="{ width: buttonStyles.width, height: buttonStyles.height }"
+  >
     <!-- 背景层 -->
     <div
       class="button-layer background-layer"
@@ -57,7 +60,10 @@
     >
       <div class="center-content">
         <span class="button-text">
-          {{ text }}
+          <!-- 如果父组件传了 slot，用 slot；否则用 text -->
+          <slot>
+            {{ text }}
+          </slot>
         </span>
       </div>
     </div>
@@ -68,8 +74,6 @@
   .stack-container {
     position: relative;
     display: inline-block;
-    width: 182px;
-    height: 46px;
   }
 
   .button-layer {

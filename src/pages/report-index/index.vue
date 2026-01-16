@@ -1,7 +1,5 @@
 <script setup lang="ts">
   import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
-  import defaultOptionIcon from '@/assets/public/default-option.png'
-  import SelectedIcon from '@/assets/public/selected.png'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
 

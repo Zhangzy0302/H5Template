@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { showSuccessToast,showLoadingToast,closeToast } from 'vant'
+  import { showSuccessToast, showLoadingToast, closeToast } from 'vant'
   import { reactive } from 'vue'
-  import defaultHead from '@/assets/public/default-head.png'
-  import upImg from '@/assets/public/up-img.png'
+  import upImg from '@/assets/images/joii_icon_up_avatar.png'
   import { useFile } from '@/hooks/useFile'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
 
   defineOptions({
     name: 'EditInfo'
@@ -21,6 +21,14 @@
     name: '',
     about: '',
     avator: ''
+  })
+
+  watchEffect(() => {
+    if (userInfo) {
+      formData.name = userInfo.name || ''
+      formData.about = userInfo.about || ''
+      formData.avator = userInfo.avator || ''
+    }
   })
 
   const onSubmit = async () => {
@@ -78,7 +86,7 @@
         round
         h-20
         w-20
-        :src="imgUrl || defaultHead"
+        :src="imgUrl || userInfo.avator"
         fit="cover"
         @click="clickElement"
       />
@@ -114,8 +122,8 @@
     </div>
 
     <!-- 底部按钮 -->
-    <div mt-50 flex justify-center>
-      <div ai-gradient-btn @click="onSubmit">Save</div>
+    <div mt-40 pb="34px" flex justify-center>
+      <GhwuadUdoahjfButton :width="183" text="Save" @click="onSubmit" />
     </div>
   </div>
 </template>

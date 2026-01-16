@@ -74,19 +74,6 @@
 
     <div p-layout-padding class="bottom-box">
       <ul class="bottom-btn">
-        <li @click="isPopup = true">
-          <van-image
-            :src="messageIcon"
-            class="icon-box"
-            :style="{
-              width: 'var(--video-details-comment-width)',
-              height: 'var(--video-details-comment-height)'
-            }"
-          />
-          <span class="public-number">
-            {{ dynamicInfo?.dynamicCommentCount }}
-          </span>
-        </li>
         <li>
           <van-image
             :src="isVideoLike ? likeIcon : detailLikeIcon"
@@ -99,6 +86,19 @@
           />
           <span class="public-number">
             {{ dynamicInfo?.dynamicLikeCount }}
+          </span>
+        </li>
+        <li @click="isPopup = true">
+          <van-image
+            :src="messageIcon"
+            class="icon-box"
+            :style="{
+              width: 'var(--video-details-comment-width)',
+              height: 'var(--video-details-comment-height)'
+            }"
+          />
+          <span class="public-number">
+            {{ dynamicInfo?.dynamicCommentCount }}
           </span>
         </li>
       </ul>
@@ -153,15 +153,24 @@
     </div>
 
     <popup-box v-model:show="isPopup">
-      <div p-layout-padding>
-        <van-divider content-position="left">Comments</van-divider>
-        <div class="h-[56vh] overflow-y-auto">
-          <comment-card
-            :list="commentList"
-            class="video-comment-card_box"
-          />
+      <div class="relative w-full h-[495px] flex flex-col">
+        <!-- 内容区（❗不再 absolute） -->
+        <div class="relative z-1 flex flex-col h-full p-layout-padding">
+          <!-- 标题 -->
+          <div class="text-white font-900 text-[16px] pb-[16px]">
+            Comments
+          </div>
+
+          <!-- 评论区（吃剩余空间） -->
+          <div class="flex-1 overflow-y-auto">
+            <comment-card
+              :list="commentList"
+              class="video-comment-card_box"
+            />
+            <!-- 输入框（自然在底部） -->
+            <input-box @send="v => onSend(v, 1)" />
+          </div>
         </div>
-        <input-box @send="v => onSend(v, 1)" />
       </div>
     </popup-box>
 

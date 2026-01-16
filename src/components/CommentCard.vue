@@ -58,7 +58,7 @@
       <span mt-2 ai-text-desc>{{ item?.content || '' }}</span>
     </div>
 
-    <report-box v-model:show="isReport" />
+    <report-box v-model:show="isReport" z-10 />
   </div>
 </template>
 

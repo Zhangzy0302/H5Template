@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import ChatBack from '@/assets/public/chat-index.png'
-  import MasonryIcon from '@/assets/public/masonry-icon.png'
+  import MasonryIcon from '@/assets/images/joii_wallet_diamond.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
@@ -40,58 +39,71 @@
 
 <template>
   <div relative class="chat-view_box">
-    <van-image :src="ChatBack" fit="cover" class="top-back" />
-    <div class="text-center w-full top-34vh absolute">
+    <div class="chat-view_bg"></div>
+    <img
+      src="@/assets/images/joii_home_ai.png"
+      h="284px"
+      fit="cover"
+      class="mx-auto relative z-10"
+      alt=""
+    />
+    <div class="text-center w-full top-34vh">
       <ul p-layout-padding>
-        <li ai-input-title>{{ winChatBotDesc.title }}</li>
+        <li ai-input-title flex flex-row justify-center>
+          <div>AI</div>
+          <div ml-2 font-400>Piano Coach</div>
+        </li>
         <li
           ai-text-desc
           class="mt-7 !text-[var(--ai-chat-view-text-color)] content_box"
         >
           {{ winChatBotDesc.content }}
         </li>
-        <li flex justify-center class="public-btoom-btn">
-          <p
-            ai-gradient-btn
-            class="bottom-btn public_btn"
+        <li flex justify-center class="public-btoom-btn" pb="20px">
+          <GhwuadUdoahjfButton
+            :width="227"
+            :height="56"
             @click="onSubmit"
           >
-            <van-image h-12 w-12 :src="MasonryIcon" fit="cover" />
-            <span text-5 font-400 ml-1>
-              X {{ winChatBotDesc.points }}
-            </span>
-            <span text-4 font-400 ml-8 mr-1>Chat</span>
-            <van-image
-              :src="chatBtnIcon"
-              fit="cover"
-              :style="{
-                width: 'var(--ai-btn-arr-image-width)',
-                height: 'var(--ai-btn-arr-image-height)'
-              }"
-            />
-          </p>
+            <div flex flex-row class="items-center justify-start">
+              <van-image
+                h="52px"
+                w="81px"
+                :src="MasonryIcon"
+                fit="contain"
+              />
+              <span font-size="20px" font-900 ml-1>
+                - {{ winChatBotDesc.points }}
+              </span>
+            </div>
+          </GhwuadUdoahjfButton>
         </li>
       </ul>
     </div>
-
-    <van-overlay :show="show" @click="show = false">
-      <div flex h-full justify-center>
-        <div class="block" @click.stop>
-          <div
-            :style="{ background: `url(${chatBgImage})` }"
-            class="content"
-            style="background-size: cover"
-          >
-            <span mt-18>Sorry</span>
-            <span mt-3>your current balance is insufficient</span>
-          </div>
-          <div mt-8 flex justify-center>
-            <p ai-gradient-btn @click="jumpToRecharge()">Recharge</p>
-          </div>
+  </div>
+  <van-overlay :show="show" @click="show = false" z-11>
+    <div flex h-full justify-center>
+      <div class="block" @click.stop>
+        <div
+          :style="{ background: `url(${chatBgImage})` }"
+          class="content"
+          style="background-size: cover"
+        >
+          <span mt="44px">Sorry</span>
+          <span mt="14px">your current balance is insufficient</span>
+        </div>
+        <div mt="20px" flex justify-center>
+          <GhwuadUdoahjfButton
+            @click="jumpToRecharge()"
+            :width="231"
+            :height="60"
+            :is-blue="true"
+            text="Recharge"
+          />
         </div>
       </div>
-    </van-overlay>
-  </div>
+    </div>
+  </van-overlay>
 </template>
 
 <style lang="less" scoped>
@@ -99,9 +111,18 @@
     background: var(--ai-chat-view-bg-color);
     height: 100vh;
     overflow-y: auto;
+    .chat-view_bg {
+      position: absolute;
+      width: 100%;
+      height: 246px;
+      z-index: 0;
+      background: url(@/assets/images/joii_main_bg.png);
+      background-position: center;
+      background-size: cover;
+    }
     .content_box {
       background: var(--ai-chat-view-bg-color);
-      padding-bottom: calc(50px + var(--ai-view-padding-bottom));
+      padding-bottom: calc(60px + var(--ai-view-padding-bottom));
     }
   }
 

@@ -21,6 +21,7 @@
         v-model="value"
         safe-area-inset-bottom
         placeholder="Say something"
+        style="padding: 0 0 0 16px"
       >
         <template #button>
           <div flex items-center>
@@ -63,6 +64,7 @@
     .van-field {
       border-radius: var(--ai-field-input-border-radius);
       height: var(--ai-field-input-height);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       font-size: var(--ai-field-input-font-size);
       font-weight: var(--ai-field-input-font-weight);
       background: var(--ai-field-input-bg-color);

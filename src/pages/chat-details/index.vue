@@ -122,19 +122,42 @@
 
 <template>
   <div text-red class="chat-details_box">
-    <div class="top-box">
+    <img src="@/assets/images/joii_main_bg.png" z-0 absolute alt="" />
+    <img
+      src="@/assets/images/joii_home_ai.png"
+      absolute
+      z-1
+      class="h-[188px] top-[101px] right-[-20px]"
+      alt=""
+    />
+    <div class="top-box" z-2>
       <ul p-layout-padding>
         <li>
           <span>I'm feeling great today.</span>
-          <van-icon name="chat-o" />
+          <img
+            src="@/assets/images/joii_icon_chat.png"
+            width="16px"
+            height="16px"
+            alt=""
+          />
         </li>
         <li>
           <span>Do you like reading?</span>
-          <van-icon name="chat-o" />
+          <img
+            src="@/assets/images/joii_icon_chat.png"
+            width="16px"
+            height="16px"
+            alt=""
+          />
         </li>
         <li>
           <span>Can you comfort me?</span>
-          <van-icon name="chat-o" />
+          <img
+            src="@/assets/images/joii_icon_chat.png"
+            width="16px"
+            height="16px"
+            alt=""
+          />
         </li>
       </ul>
     </div>
@@ -153,12 +176,20 @@
   }
   .chat-details_box {
     min-height: 100vh;
-    background: var(--ai-chat-details-bg-color);
+    overflow-x: hidden;
+    position: relative;
+
+    .chat-details_box {
+      position: absolute;
+      width: 100%;
+      background: url(@/assets/images/joii_main_bg.png);
+      background-position: center;
+    }
   }
 
   .top-box {
     height: 282px;
-    background: url('@/assets/public/top-chat.png');
+    position: relative;
     background-size: cover;
     display: flex;
     align-items: flex-end;

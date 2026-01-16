@@ -68,10 +68,9 @@ export default {
     color: 'rgba(255, 255, 255, 0.8)',
     placeholderCorlor: 'rgba(255, 255, 255, 0.4)',
     /** 右侧发送图标 */
-    sendIcon:
-      'https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/sivio_send_icon.png',
-    sendIconWidth: '21px',
-    sendIconHeight: '21px'
+    sendIcon: 'src/assets/images/joii_icon_send.png',
+    sendIconWidth: '46px',
+    sendIconHeight: '46px'
   },
   /** 表单标题样式 */
   formTitleStyle: {
@@ -90,9 +89,8 @@ export default {
   },
   /** 表单按钮样式 */
   formBtnStyle: {
-    backgroundColor:
-      'linear-gradient(90deg,rgba(120, 223, 255, 0.064),rgba(84, 105, 199, 0.05))',
-    borderRadius: '12px',
+    backgroundColor: 'rgba(57, 47, 74, 1)',
+    borderRadius: '32px',
     fontSize: '16px',
     fontWeight: '400',
     color: 'rgba(255, 255, 255, 1)'
@@ -110,7 +108,7 @@ export default {
   highlightBtnStyle: {
     color: 'rgba(255, 255, 255, 1)',
     backgroundColor:
-      'linear-gradient(151.23deg, rgba(71, 252, 255, 1) 0%, rgba(255, 94, 135, 1) 100%)'
+      'linear-gradient(270deg, rgba(151, 93, 227, 1) 0%, rgba(29, 0, 217, 1) 100%)'
   },
   /** 确认按钮样式 */
   confirmBtnStyle: {
@@ -170,21 +168,20 @@ export default {
       /** 标题文本 */
       titleTextStyle: {
         fontSize: '20px',
-        fontWeight: '400',
-        color: 'rgba(15, 8, 26, 1)'
+        fontWeight: '900',
+        color: 'rgba(255, 255, 255, 1)'
       },
       /** 描述文本样式 */
       descTextStyle: {
         fontSize: '14px',
         fontWeight: '400',
-        color: '#0e080f99'
+        color: 'rgba(255, 255, 255, 0.8)'
       },
       /** 背景样式 */
       bgImageStyle: {
-        width: '280px',
-        height: '210px',
-        bgImg:
-          'https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/sivio_ai_pay_bg.png'
+        width: '263px',
+        height: '206px',
+        bgImg: 'src/assets/images/joii_no_money_bg.png'
       }
     }
   },

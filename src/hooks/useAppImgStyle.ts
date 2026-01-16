@@ -3,13 +3,13 @@
  */
 
 import loveIcon from '@/assets/images/love.svg'
-import SendIcon from '@/assets/images/send.svg'
+import SendIcon from '@/assets/images/joii_icon_send.png'
 import LeftIcon from '@/assets/images/joii_icon_arrow_left.png'
 import RightMore from '@/assets/nav-bar/more.svg'
 import Add from '@/assets/images/joii_icon_follow.png'
 import DialogBox from '@/assets/images/joii_no_money_bg.png'
-import Like from '@/assets/public/like.png'
-import Message from '@/assets/public/message.png'
+import Like from '@/assets/images/joii_icon_like.png'
+import Message from '@/assets/images/joii_icon_comment.png'
 import GoChat from '@/assets/images/joii_icon_chat.png'
 import RightIcon from '@/assets/images/joii_icon_arrow_right.png'
 

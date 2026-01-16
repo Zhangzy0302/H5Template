@@ -1,8 +1,14 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, showToast, closeToast } from 'vant'
+  import {
+    showLoadingToast,
+    showSuccessToast,
+    showToast,
+    closeToast
+  } from 'vant'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
 
   defineOptions({
     name: 'SendDynamic'
@@ -81,7 +87,7 @@
     <!-- 输入框 -->
     <text-box v-model="formData.dynamicDesc" />
 
-    <div mt-9>
+    <div mt-9 flex flex-col>
       <!-- 主题选项 -->
       <div>
         <div ai-input-title>Topic</div>
@@ -92,6 +98,12 @@
             ai-default-btn
             :class="{
               'ai-selected-btn': formData.dynamicTitleType === item.value
+            }"
+            :style="{
+              border:
+                item.value === formData.dynamicTitleType
+                  ? '1px solid white'
+                  : ''
             }"
             @click="formData.dynamicTitleType = item.value"
           >
@@ -106,10 +118,8 @@
       </div>
 
       <!-- 底部按钮 -->
-      <div mt-20 flex justify-center class="public-btoom-btn">
-        <div ai-gradient-btn class="public_btn" @click="onSubmit">
-          Release
-        </div>
+      <div mt-10 mb-10 flex justify-center>
+        <GhwuadUdoahjfButton text="Release" @click="onSubmit" />
       </div>
     </div>
   </div>

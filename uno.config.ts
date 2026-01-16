@@ -60,9 +60,9 @@ export default defineConfig({
     [
       'ai-text-desc',
       {
-        'font-size': 'var(--ai-prose-text-font-size)',
+        'font-size': '16px',
         'font-weight': 'var(--ai-prose-text-font-weight)',
-        color: 'var(--ai-prose-text-color)',
+        color: 'rgba(255, 255, 255, 0.6)',
         display: 'inline-block',
         wordWrap: 'break-word',
         whiteSpace: 'normal',
@@ -77,7 +77,7 @@ export default defineConfig({
         'font-weight': '400',
         padding: '5px 10px',
         border: '1px solid white',
-        'line-height': 'var(--ai-tag-height)',
+        'line-height': '16px',
         display: 'block',
         color: 'var(--ai-tag-text-color)',
         background: 'rgba(255, 255, 255, 0.1)',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import LeftIcon from '@/assets/nav-bar/back.svg'
+  import LeftIcon from '@/assets/images/joii_icon_arrow_left.png'
   import RightMore from '@/assets/nav-bar/more.svg'
   import Head from '@/assets/public/Head.png'
   import ImgIcon from '@/assets/public/img-icon.png'
@@ -118,51 +118,60 @@
 </script>
 
 <template>
-  <div v-if="!loading" safe-area-inset-bottom class="private-chat_box">
-    <VanNavBar
-      :border="false"
-      safe-area-inset-top
-      :clickable="false"
-      class="top-chat-navbar"
-      @click-left="onBack"
-    >
-      <template #left>
-        <div flex items-center>
-          <van-image :src="LeftIcon" h-6 w-6 />
+  <div
+    v-if="!loading"
+    safe-area-inset-bottom
+    class="private-chat_box relative"
+  >
+    <img
+      src="@/assets/images/joii_main_bg.png"
+      class="absolute w-[100vw] h-[246px]"
+      alt=""
+    />
+    <div flex flex-col relative>
+      <VanNavBar
+        :border="false"
+        safe-area-inset-top
+        :clickable="false"
+        class="top-chat-navbar"
+        @click-left="onBack"
+      >
+        <template #left>
+          <div flex items-center>
+            <van-image :src="LeftIcon" h-6 w-6 />
+            <van-image
+              round
+              mx-3
+              ai-avatar
+              :src="viewInfo.avator || Head"
+              fit="cover"
+            />
+            <span mt-1 ai-user-name>{{ viewInfo.name }}</span>
+          </div>
+        </template>
+        <template #right>
+          <van-image :src="ImgIcon" h-6 w-6 @click="clickElement" />
           <van-image
-            round
-            mx-3
-            ai-avatar
-            :src="viewInfo.avator || Head"
-            fit="cover"
+            mx-6
+            :src="VideoIcon"
+            h-6
+            w-6
+            @click="jumpToCall(viewInfo.userId, queryId)"
           />
-          <span mt-1 ai-user-name>{{ viewInfo.name }}</span>
-        </div>
-      </template>
-      <template #right>
-        <van-image :src="ImgIcon" h-6 w-6 @click="clickElement" />
-        <van-image
-          mx-6
-          :src="VideoIcon"
-          h-6
-          w-6
-          @click="jumpToCall(viewInfo.userId, queryId)"
-        />
-        <van-image
-          :src="RightMore"
-          h-6
-          w-6
-          @click="
-            () => {
-              detailId = viewInfo.userId
-              isReport = true
-            }
-          "
-        />
-      </template>
-    </VanNavBar>
+          <van-image
+            :src="RightMore"
+            h-6
+            w-6
+            @click="
+              () => {
+                detailId = viewInfo.userId
+                isReport = true
+              }
+            "
+          />
+        </template>
+      </VanNavBar>
 
-    <div>
       <chat-list v-model:list="listData" @send="v => onSend(v)" />
     </div>
 
@@ -173,13 +182,11 @@
 <style lang="less" scoped>
   .private-chat_box {
     min-height: 100vh;
-    background: var(--ai-private-chat-bg-color);
     padding-bottom: 70px;
   }
 
   .top-chat-navbar {
-    background: url('@/assets/public/chat-nav-bar-bg.png');
     background-size: cover;
-    --van-nav-bar-height: 104px;
+    --van-nav-bar-height: 58px;
   }
 </style>

@@ -33,21 +33,38 @@
 
 <template>
   <div class="call-box">
-    <div v-if="!loading" flex flex-col justify-center items-center>
-      <div flex flex-col justify-center items-center>
+    <div
+      v-if="!loading"
+      flex
+      flex-col
+      justify-center
+      items-center
+      relative
+      w-full
+      h-full
+    >
+      <van-image
+        absolute
+        :src="userData.avator || Head"
+        width="100%"
+        height="100%"
+        class="opacity-50"
+        fit="cover"
+      />
+      <div class="chat_bg"></div>
+      <div flex flex-col justify-center items-center relative>
         <van-image
           round
           ai-avatar
           :src="userData.avator || Head"
           fit="cover"
-          class="mt-[14vh] !h-20 !w-20"
+          class="mt-[14vh] !h-20 !w-20 avatar"
         />
-        <span ai-user-name my-4>{{ userData.name }}</span>
+        <span ai-user-name mt="46px" mb="12px">{{ userData.name }}</span>
         <span ai-text-desc>Calling...</span>
       </div>
       <p
-        ai-gradient-btn
-        class="mt-[26vh] !rounded-full !flex !justify-center !items-center !h-16 !w-16"
+        class="mt-[26vh] !rounded-full !flex !justify-center !items-center !h-16 !w-16 call_down_btn relative"
         @click="onBack"
       >
         <van-image round :src="HangIcon" fit="cover" />
@@ -60,13 +77,36 @@
   .call-box {
     width: 100%;
     height: 100vh;
-    background: var(--ai-private-chat-bg-color);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // 导入背景图
-    background: url('@/assets/public/call-bg.png');
     background-size: cover;
+    .chat_bg {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background:
+        linear-gradient(
+          0deg,
+          rgba(15, 8, 26, 1) 0%,
+          rgba(15, 8, 26, 0) 100%
+        ),
+        url('@/assets/images/joii_main_bg.png') no-repeat right;
+    }
+    .avatar {
+      border: 2.25px solid rgba(255, 255, 255, 1);
+    }
+    .call_down_btn {
+      background: linear-gradient(
+        270deg,
+        rgba(227, 93, 187, 1) 0%,
+        rgba(217, 0, 0, 1) 100%
+      );
+
+      border: 1px solid rgba(255, 255, 255, 1);
+      box-shadow: inset 3px 2px 5px rgba(255, 255, 255, 0.6);
+    }
   }
 </style>

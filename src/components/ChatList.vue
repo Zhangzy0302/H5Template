@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Head from '@/assets/public/ai-head.png'
+  import Head from '@/assets/images/joii_ai_head.png'
 
   const listData = defineModel<MessageInfo[]>('list', {
     type: Array as PropType<MessageInfo[]>,
@@ -25,7 +25,12 @@
       class="list-box"
     >
       <div v-if="item.position === 'left'">
-        <div flex class="content">
+        <div
+          flex
+          justify-start
+          flex-col
+          class="content gap-[8px] items-start"
+        >
           <van-image
             round
             mr-3
@@ -34,7 +39,7 @@
             fit="cover"
             class="user-head"
           />
-          <div v-if="item.sendContent" class="user-chat">
+          <div v-if="item.sendContent" class="user-chat other-chat">
             <p ai-text-desc>
               {{ item.sendContent }}
             </p>
@@ -56,12 +61,12 @@
       </div>
 
       <div v-if="item.position === 'right'">
-        <div flex justify-end class="content">
-          <div v-if="item.sendContent" class="user-chat">
-            <p ai-text-desc class="send-box">
-              {{ item.sendContent }}
-            </p>
-          </div>
+        <div
+          flex
+          justify-end
+          flex-col
+          class="content gap-[8px] items-end"
+        >
           <van-image
             round
             ml-3
@@ -70,10 +75,14 @@
             fit="cover"
             class="user-head"
           />
+          <div v-if="item.sendContent" class="user-chat">
+            <p ai-text-desc class="send-box">
+              {{ item.sendContent }}
+            </p>
+          </div>
         </div>
         <div v-if="item.sendPicUrl" flex justify-end>
           <van-image
-            mr-3
             h-48
             w-48
             :src="item.sendPicUrl"
@@ -102,6 +111,19 @@
     flex-shrink: 0;
   }
 
+  .other-chat {
+    background: linear-gradient(
+      180deg,
+      rgba(35, 4, 217, 1) 0%,
+      rgba(119, 99, 231, 1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 必须 */
+
+    border-radius: 0px var(--ai-chat-list-avatar-border-radius)
+      var(--ai-chat-list-avatar-border-radius)
+      var(--ai-chat-list-avatar-border-radius);
+  }
+
   .user-chat {
     color: #fff;
 
@@ -110,12 +132,11 @@
       border-radius: 0px var(--ai-chat-list-avatar-border-radius)
         var(--ai-chat-list-avatar-border-radius)
         var(--ai-chat-list-avatar-border-radius);
-      background: var(--ai-chat-list-receive-bg-color);
     }
   }
 
   .send-box {
-    background: var(--ai-chat-list-send-bg-color) !important;
+    background: rgba(57, 47, 74, 1) !important;
     border-radius: var(--ai-chat-list-avatar-border-radius) 0px
       var(--ai-chat-list-avatar-border-radius)
       var(--ai-chat-list-avatar-border-radius) !important;

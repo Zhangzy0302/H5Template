@@ -79,6 +79,7 @@
           <span ai-text-desc>{{ dynamicInfo?.dynamicDesc }}</span>
           <p flex flex-wrap>
             <span mr-2 mt-4 ai-tag-btn>
+              #
               {{
                 winPublishImageListData[dynamicInfo?.dynamicTitleType]
                   .name

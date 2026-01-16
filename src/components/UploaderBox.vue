@@ -73,7 +73,7 @@
       :preview-full-image="isImage"
       :multiple="props.maxCount > 1"
       :max-count="props.maxCount"
-      :upload-icon="isImage ? 'photograph' : 'video'"
+      :upload-icon="isImage ? 'plus' : 'plus'"
       :after-read="afterRead"
     >
       <template v-if="!isImage" #preview-cover="item">
@@ -143,7 +143,7 @@
       video {
         width: 100%;
         height: 100%;
-        background: #231e24;
+        background: rgba(57, 47, 74, 1);
       }
 
       .play-box {
@@ -151,7 +151,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: #231e24;
+        color: rgba(57, 47, 74, 1);
         font-size: 36px;
       }
     }

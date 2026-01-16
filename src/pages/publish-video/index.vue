@@ -87,7 +87,7 @@
 
     <!-- 视频上传 -->
     <div>
-      <div ai-input-title>Upload(video)</div>
+      <div ai-input-title mt="24px">Upload(video)</div>
       <uploader-box
         v-model:list="formData.dynamicPic"
         :max-count="1"
@@ -102,7 +102,7 @@
     </div> -->
 
     <!-- 底部按钮 -->
-    <div mt-auto pb="40px" flex justify-center class="public-btoom-btn">
+    <div mt-auto pb="40px" flex justify-center>
       <GhwuadUdoahjfButton
         @click="onSubmit"
         :width="182"
@@ -117,6 +117,8 @@
 <style lang="less" scoped>
   .publish-video_box {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     padding-top: calc(
       var(--van-nav-bar-height) + var(--ai-view-padding-top)
     );
