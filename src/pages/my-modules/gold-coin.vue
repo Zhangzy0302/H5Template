@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import MasonryIcon from '@/assets/public/masonry-icon.png'
   import MyIcon from '@/assets/public/my-icon.png'
   import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
   import { useJump } from '@/hooks/useJump'
@@ -58,8 +57,8 @@
         :width="182"
         :height="46"
         :is-blue="true"
-        @click="onRecharge"
         text="Recharge"
+        @click="onRecharge"
       />
     </div>
   </div>

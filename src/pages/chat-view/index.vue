@@ -9,7 +9,7 @@
     name: 'ChatView'
   })
 
-  const { chatBtnIcon, chatBgImage } = useAppImgStyle()
+  const { chatBgImage } = useAppImgStyle()
   const { winUserData, winUserListData, winChatBotDesc } = useWindow()
   const { userInfo } = useUserStore()
   const { jumpToRecharge, appParams, jumpToChatDetail } = useJump()
@@ -39,7 +39,7 @@
 
 <template>
   <div relative class="chat-view_box">
-    <div class="chat-view_bg"></div>
+    <div class="chat-view_bg" />
     <img
       src="@/assets/images/joii_home_ai.png"
       h="284px"
@@ -81,7 +81,7 @@
       </ul>
     </div>
   </div>
-  <van-overlay :show="show" @click="show = false" z-11>
+  <van-overlay :show="show" z-11 @click="show = false">
     <div flex h-full justify-center>
       <div class="block" @click.stop>
         <div
@@ -94,11 +94,11 @@
         </div>
         <div mt="20px" flex justify-center>
           <GhwuadUdoahjfButton
-            @click="jumpToRecharge()"
             :width="231"
             :height="60"
             :is-blue="true"
             text="Recharge"
+            @click="jumpToRecharge()"
           />
         </div>
       </div>
