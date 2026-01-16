@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import Head from '@/assets/public/Head.png'
-  import swipeOne from '@/assets/public/swipe-1.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useDetail } from '@/hooks/useDetail'
   import { useWindow } from '@/hooks/useWindow'
@@ -33,7 +32,7 @@
           <van-image
             h-full
             w-full
-            :src="item || swipeOne"
+            :src="item"
             fit="cover"
             position="top"
           />

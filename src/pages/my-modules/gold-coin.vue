@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import MyIcon from '@/assets/public/my-icon.png'
+  import MyIcon from '@/assets/images/joii_wallet_dimond_icon.png'
   import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
