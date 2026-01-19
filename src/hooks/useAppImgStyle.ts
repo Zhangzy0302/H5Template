@@ -8,9 +8,9 @@ import GoChat from '@/assets/images/joii_icon_chat.png'
 import Message from '@/assets/images/joii_icon_comment.png'
 import Add from '@/assets/images/joii_icon_follow.png'
 import Like from '@/assets/images/joii_icon_like.png'
+import loveIcon from '@/assets/images/joii_icon_like_u.png'
 import SendIcon from '@/assets/images/joii_icon_send.png'
 import DialogBox from '@/assets/images/joii_no_money_bg.png'
-import loveIcon from '@/assets/images/love.svg'
 import RightMore from '@/assets/nav-bar/more.svg'
 
 export const useAppImgStyle = () => {
