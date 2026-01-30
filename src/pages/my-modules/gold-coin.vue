@@ -24,8 +24,8 @@
 
 <template>
   <div safe-area-inset-top class="gold-coin_box">
-    <div p-layout-padding flex-col flex justify-center items-center>
-      <div class="top-box">
+    <div p-layout-padding flex-col flex>
+      <div class="top-box" self-center>
         <li ml-auto mr="32px" flex flex-col>
           <span font-size="20px" text-white font-medium>
             {{ userInfo.coins }}
@@ -54,6 +54,7 @@
       <GhwuadUdoahjfButton
         mt-6
         pb-2
+        self-center
         :width="182"
         :height="46"
         :is-blue="true"
@@ -75,7 +76,7 @@
     background: url(@/assets/images/joii_wallet_top_bg.png) no-repeat;
     background-size: contain;
     width: 100%;
-    height: 111px;
+    height: 109px;
     display: flex;
     align-items: center;
     padding: 20px;
@@ -91,8 +92,7 @@
     /* 可选：设置子项之间的间距 */
 
     li {
-      width: var(--ai-coin-select-style-width);
-      height: var(--ai-coin-select-style-height);
+      height: 75px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -101,7 +101,7 @@
       background: var(--ai-coin-select-style-bg-color);
 
       p {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         display: flex;
         align-items: baseline;
       }
