@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import Head from '@/assets/public/Head.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
-  import { detailId } from '@/hooks/useDetail'
+  import { useAuth } from '@/hooks/useAuth'
+import { detailId } from '@/hooks/useDetail'
   import { useUserStore } from '@/stores'
+
+const { checkLogin } = useAuth()
 
   const { reportIcon } = useAppImgStyle()
   const { userInfo } = useUserStore()
@@ -48,7 +51,8 @@
               height: 'var(--report-image-height)'
             }"
             @click="
-              () => {
+  () => {
+    if (!checkLogin()) return
                 isReport = true
                 detailId = item.userId
               }

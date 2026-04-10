@@ -8,9 +8,12 @@
     // routeTopNavBar
   } from '@/config/routes'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
+  import { useAuth } from '@/hooks/useAuth'
   import { useJump } from '@/hooks/useJump'
-  import { useWindow } from '@/hooks/useWindow'
-  import { useUserStore } from '@/stores'
+import { useWindow } from '@/hooks/useWindow'
+import { useUserStore } from '@/stores'
+
+const { checkLogin } = useAuth()
 
   const { onBack, queryId } = useJump()
 
@@ -100,6 +103,11 @@
   const showNavBarStyle = computed(
     () => !route.name || navBarStyle.includes(route.name)
   )
+
+const showReportBox = () => {
+  if (!checkLogin()) return
+  isReport.value = true
+  }
 </script>
 
 <template>
@@ -142,7 +150,7 @@
           width: 'var(--report-image-width)',
           height: 'var(--report-image-height)'
         }"
-        @click="isReport = true"
+        @click="showReportBox"
       />
     </template>
   </VanNavBar>

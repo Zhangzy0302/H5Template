@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import Head from '@/assets/public/Head.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
-  import { useDetail } from '@/hooks/useDetail'
-  import { useUserStore } from '@/stores'
+  import { useAuth } from '@/hooks/useAuth'
+import { useDetail } from '@/hooks/useDetail'
+import { useUserStore } from '@/stores'
+
+const { checkLogin } = useAuth()
 
   defineOptions({
     name: 'ShortVideo'
@@ -27,7 +30,7 @@
   const isPlaying = ref(false)
   const isPopup = ref(false)
   // 举报弹框
-  const isReport = ref(false)
+const isReport = ref(false)
 
   const togglePlay = async () => {
     if (!videoRef.value) return
@@ -118,11 +121,11 @@
             absolute
             :src="addIcon"
             fit="cover"
-            @click="onFollow"
             :style="{
               width: 'var(--video-details-follow-width)',
               height: 'var(--video-details-follow-height)'
             }"
+            @click="onFollow"
           />
         </div>
         <ul flex w-full items-center>
@@ -136,17 +139,20 @@
               </span>
             </li>
           </ul>
-          <van-image
-            v-if="userInfo.userId !== dynamicInfo?.userId"
-            :src="reportIcon"
-            :style="{
-              width: 'var(--report-image-width)',
-              height: 'var(--report-image-height)'
-            }"
-            @click="isReport = true"
-          />
-        </ul>
-      </div>
+        <van-image
+          v-if="userInfo.userId !== dynamicInfo?.userId"
+          :src="reportIcon"
+          :style="{
+            width: 'var(--report-image-width)',
+            height: 'var(--report-image-height)'
+          }"
+          @click="() => {
+    if (!checkLogin()) return
+    isReport = true
+  }"
+        />
+      </ul>
+</div>
     </div>
 
     <popup-box v-model:show="isPopup">

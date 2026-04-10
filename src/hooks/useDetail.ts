@@ -1,6 +1,22 @@
+import GoLoginAlert from '@/components/GoLoginAlert.vue'
 import { useUserStore } from '@/stores'
 import { useJump } from './useJump'
 import { useWindow } from './useWindow'
+
+let instance
+let container
+
+export function showLoginAlert() {
+  if (!instance) {
+    container = document.createElement('div')
+    document.body.appendChild(container)
+
+    const app = createApp(GoLoginAlert)
+    instance = app.mount(container)
+  }
+  console.log('弹窗函数执行了')
+  instance.show()
+}
 
 /** 对应详情的用户 id */
 export const detailId = ref('')
@@ -31,6 +47,14 @@ export const useDetail = () => {
   const isVideoLike = ref(false)
 
   const loding = ref(true)
+
+  const checkLogin = () => {
+    if (userInfo?.userId === '6') {
+      showLoginAlert()
+      return false
+    }
+    return true
+  }
 
   const getData = () => {
     const userList = window?.userListJson ?? []
@@ -79,6 +103,7 @@ export const useDetail = () => {
    */
   const onSend = (v: string, _: 0 | 1 = 0) => {
     if (v) {
+      if (!checkLogin()) return
       const id = Date.now()
       const item: CommentInfo = {
         dynamicId: queryId.value,
@@ -106,6 +131,9 @@ export const useDetail = () => {
    * 图片点赞
    */
   const onLike = () => {
+    console.log('点击了')
+    if (!checkLogin()) return
+
     if (isLike.value) {
       userInfo.picPostLikeIds = userInfo.picPostLikeIds.filter(v => v !== queryId.value)
       dynamicInfo.value.dynamicLikeCount -= 1
@@ -133,6 +161,7 @@ export const useDetail = () => {
 
   /** 视频点赞 */
   const onVideoLike = () => {
+    if (!checkLogin()) return
     if (isVideoLike.value) {
       userInfo.videoPostLikeIds = userInfo.videoPostLikeIds.filter(v => v !== queryId.value)
       dynamicInfo.value.dynamicLikeCount -= 1
@@ -160,6 +189,7 @@ export const useDetail = () => {
 
   /** 点击关注 */
   const onFollow = () => {
+    if (!checkLogin()) return
     if (userInfo.userId !== dynamicInfo.value.userId) {
       if (!userInfo.follow.includes(dynamicInfo.value.userId)) {
         userInfo.follow.push(dynamicInfo.value.userId)
@@ -186,5 +216,5 @@ export const useDetail = () => {
     getData()
   })
 
-  return { loding, dynamicInfo, commentList, isLike, isVideoLike, isFollow, onFollow, onLike, onSend, onVideoLike, onAvator }
+  return { loding, dynamicInfo, commentList, isLike, isVideoLike, isFollow, onFollow, onLike, onSend, onVideoLike, onAvator, checkLogin }
 }

@@ -1,26 +1,41 @@
 <script setup lang="ts">
   import { showLoadingToast } from 'vant'
   import Head from '@/assets/public/Head.png'
+  import GoChatAlert from '@/components/GoChatAlert.vue'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
+  import { useAuth } from '@/hooks/useAuth'
   import { detailId } from '@/hooks/useDetail'
-  import { useJump } from '@/hooks/useJump'
-  import { useWindow } from '@/hooks/useWindow'
-  import { useUserStore } from '@/stores'
+import { useJump } from '@/hooks/useJump'
+import { useWindow } from '@/hooks/useWindow'
+
+import { useUserStore } from '@/stores'
 
   defineOptions({
     name: 'other-home'
   })
 
-  const { reportIcon, otherHomeMessageIcon, otherHomeLikeIcon } =
-    useAppImgStyle()
-  const { winPublishImageListData } = useWindow()
-  const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
-    useJump()
-  const { winUserListData, winDynamicData, winChatListData } = useWindow()
-  const useData = useUserStore()
+  const { checkLogin } = useAuth()
+
+  const {
+    reportIcon,
+    otherHomeMessageIcon,
+    otherHomeLikeIcon
+  } = useAppImgStyle()
+const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
+  useJump()
+
+const {
+  winUserListData,
+  winDynamicData,
+  winChatListData,
+  winPublishImageListData
+} = useWindow()
+const useData = useUserStore()
 
   // 举报弹框
-  const isReport = ref(false)
+const isReport = ref(false)
+const isGoChatAlert = ref(false)
+
   const userInfo = ref<UserInfo>(null)
   const bottomList = ref<DynamicInfo[]>([])
   const loading = ref(true)
@@ -49,7 +64,8 @@
     jumpToDetail(item.dynamicId, item.dynamicType, queryId.value)
   }
 
-  const onFollow = () => {
+const onFollow = () => {
+  if (!checkLogin()) return
     useData.userInfo.follow.push(userInfo.value.userId)
     userInfo.value.fans.push(useData.userInfo.userId)
     allUserList.value.forEach(v => {
@@ -76,7 +92,14 @@
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
   }
 
-  const onAddChat = () => {
+const onAddChat = () => {
+  if (!checkLogin()) return
+    // 先判断用户双方是否互相关注
+    if (!(userInfo.value.follow.includes(useData.userInfo.userId) && useData.userInfo.follow.includes(userInfo.value.userId))) {
+      isGoChatAlert.value = true
+      return
+    }
+
     const chatItem = winChatListData.find(v => {
       return (
         v.chatUserIds.includes(userInfo.value.userId) &&
@@ -224,7 +247,8 @@
                 height: 'var(--report-image-height)'
               }"
               @click.stop="
-                () => {
+  () => {
+                if (!checkLogin()) return
                   isReport = true
                   detailId = item.userId
                 }
@@ -265,9 +289,9 @@
         </div>
       </div>
     </div>
-
+    <GoChatAlert v-model:visible="isGoChatAlert" />
     <report-box v-model:show="isReport" />
-  </div>
+</div>
 </template>
 
 <style lang="less" scoped>
