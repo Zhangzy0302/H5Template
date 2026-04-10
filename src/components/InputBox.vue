@@ -23,18 +23,18 @@
         placeholder="Say something"
         :border="false"
         class="flex-1"
-        :input-align="'left'"
+        input-align="left"
       />
 
       <!-- 发送按钮 -->
       <van-image
         :src="inputSendIcon"
-        @click="onSend"
         :style="{
           width: 'var(--comment-input-image-width)',
           height: 'var(--comment-input-image-height)',
           marginLeft: '8px' // 按钮与输入框的间距
         }"
+        @click="onSend"
       />
     </div>
   </div>
@@ -53,6 +53,7 @@
   }
   .input-box {
     position: fixed;
+    z-index: 99;
     bottom: 0;
     left: 0;
     width: 100%;

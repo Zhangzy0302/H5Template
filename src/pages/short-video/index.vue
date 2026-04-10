@@ -163,12 +163,12 @@ const isReport = ref(false)
             :list="commentList"
             class="video-comment-card_box"
           />
+          <input-box @send="v => onSend(v, 1)" />
         </div>
-        <input-box @send="v => onSend(v, 1)" />
-      </div>
-    </popup-box>
+</div>
+</popup-box>
 
-    <report-box v-model:show="isReport" />
+    <report-box v-model:show="isReport" z-9999 />
   </div>
 </template>
 
@@ -176,6 +176,7 @@ const isReport = ref(false)
   .video-comment-card_box {
     padding-bottom: calc(60px + var(--ai-view-padding-bottom));
   }
+
   .video-box {
     width: 100%;
     height: 100vh;

@@ -14,6 +14,44 @@ type stsTypeData = {
   host: string
 }
 
+export async function resolveImage(src) {
+  try {
+    if (!src) return ''
+
+    // base64
+    if (src.startsWith('data:image')) return src
+
+    // http
+    if (src.startsWith('http')) return src
+
+    // file:// OR 本地沙盒路径（关键修复）
+    const isLocalFile =
+      src.startsWith('file://') ||
+      src.startsWith('/') // 👈 iOS/Android 沙盒路径
+
+    if (isLocalFile) {
+      if (window.flutter_inappwebview) {
+        const res = await window.flutter_inappwebview.callHandler(
+          'getLocalImage',
+          src
+        )
+
+        if (!res) return ''
+
+        return res.startsWith('data:image')
+          ? res
+          : `data:image/jpeg;base64,${res}`
+      }
+      return ''
+    }
+
+    return src
+  } catch (e) {
+    console.error(e)
+    return ''
+  }
+}
+
 /** 上传成功回调类型 */
 type UploadSuccessCallback = (url: string) => void
 

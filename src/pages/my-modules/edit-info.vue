@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { showSuccessToast, showLoadingToast, closeToast } from 'vant'
+  import { closeToast, showLoadingToast, showSuccessToast } from 'vant'
   import { reactive } from 'vue'
-  import defaultHead from '@/assets/images/folick_ciwn_default_avatar.png'
   import upImg from '@/assets/images/folick_ciwn_avatar_change.png'
-  import { useFile } from '@/hooks/useFile'
+  import defaultHead from '@/assets/images/folick_ciwn_default_avatar.png'
+  import { resolveImage, useFile } from '@/hooks/useFile'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -86,6 +86,18 @@
       })
     }, 1000)
   }
+
+const finalAvatar = ref('')
+watchEffect(async () => {
+  const raw =
+    imgUrl.value ||
+    formData.avator ||
+    userInfo.avator ||
+    defaultHead
+
+  finalAvatar.value = await resolveImage(raw)
+  console.log('finalAvatar', finalAvatar.value)
+})
 </script>
 
 <template>
@@ -96,7 +108,7 @@
         round
         h-20
         w-20
-        :src="imgUrl || formData.avator || userInfo.avator || defaultHead"
+        :src="finalAvatar"
         fit="cover"
         @click="clickElement"
       />
