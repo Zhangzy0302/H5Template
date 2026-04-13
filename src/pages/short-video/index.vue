@@ -3,6 +3,7 @@
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useAuth } from '@/hooks/useAuth'
 import { useDetail } from '@/hooks/useDetail'
+import { resolveImage } from '@/hooks/useFile'
 import { useUserStore } from '@/stores'
 
 const { checkLogin } = useAuth()
@@ -52,6 +53,14 @@ const isReport = ref(false)
       }
     }
   }
+
+  const finalAvatar = ref('')
+watchEffect(async () => {
+  const raw = dynamicInfo?.value.avator || Head
+
+  finalAvatar.value = await resolveImage(raw)
+  console.log('finalAvatar', finalAvatar.value)
+})
 </script>
 
 <template>
@@ -108,7 +117,7 @@ const isReport = ref(false)
           <van-image
             round
             ai-avatar
-            :src="dynamicInfo?.avator || Head"
+            :src="finalAvatar"
             fit="cover"
             class="user-head"
             @click="onAvator"

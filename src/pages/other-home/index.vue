@@ -5,6 +5,7 @@
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useAuth } from '@/hooks/useAuth'
   import { detailId } from '@/hooks/useDetail'
+import { resolveImage } from '@/hooks/useFile'
 import { useJump } from '@/hooks/useJump'
 import { useWindow } from '@/hooks/useWindow'
 
@@ -143,6 +144,14 @@ const onAddChat = () => {
     // 不显示自己
     return item.userId !== useData.userInfo.userId
   }
+
+  const finalAvatar = ref('')
+watchEffect(async () => {
+  const raw = userInfo.value.avator
+
+  finalAvatar.value = await resolveImage(raw)
+  console.log('finalAvatar', finalAvatar.value)
+})
 </script>
 
 <template>
@@ -158,7 +167,7 @@ const onAddChat = () => {
           <van-image
             round
             ai-avatar
-            :src="userInfo.avator"
+            :src="finalAvatar"
             fit="cover"
             class="user-head"
           />
@@ -229,7 +238,7 @@ const onAddChat = () => {
             <van-image
               round
               ai-avatar
-              :src="userInfo.avator"
+              :src="finalAvatar"
               fit="cover"
             />
             <span mx-2 ai-user-name>Apien</span>

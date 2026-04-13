@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useDetail } from '@/hooks/useDetail'
+import { resolveImage } from '@/hooks/useFile'
   import { useWindow } from '@/hooks/useWindow'
 
   defineOptions({
@@ -18,6 +19,14 @@
     onLike,
     onSend
   } = useDetail()
+
+  const finalAvatar = ref('')
+watchEffect(async () => {
+  const raw = dynamicInfo?.value.avator
+
+  finalAvatar.value = await resolveImage(raw)
+  console.log('finalAvatar', finalAvatar.value)
+})
 </script>
 
 <template>
@@ -68,7 +77,7 @@
           <van-image
             round
             width="48px"
-            :src="dynamicInfo?.avator"
+            :src="finalAvatar"
             fit="cover"
           />
         </li>

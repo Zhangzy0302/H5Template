@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import axios from 'axios'
   import CryptoJS from 'crypto-js'
-  import { useUserStore } from '@/stores'
+import { useUserStore } from '@/stores'
 
   defineOptions({
     name: 'ChatDetails'
