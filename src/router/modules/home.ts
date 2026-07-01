@@ -6,6 +6,14 @@ export default [
     component: () => import('@/pages/index.vue')
   },
   {
+    path: '/register',
+    name: 'Register',
+    meta: {
+      title: 'Register'
+    },
+    component: () => import('@/pages/register/index.vue')
+  },
+  {
     path: '/report-index',
     name: 'ReportIndex',
     meta: {
