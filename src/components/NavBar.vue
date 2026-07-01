@@ -8,11 +8,13 @@
     // routeTopNavBar
   } from '@/config/routes'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
 
   const { onBack, queryId } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   const { backIcon, reportIcon } = useAppImgStyle()
 
@@ -100,6 +102,11 @@
   const showNavBarStyle = computed(
     () => !route.name || navBarStyle.includes(route.name)
   )
+
+  const onReport = () => {
+    if (guardGuestAction()) return
+    isReport.value = true
+  }
 </script>
 
 <template>
@@ -143,7 +150,7 @@
           width: 'var(--report-image-width)',
           height: 'var(--report-image-height)'
         }"
-        @click="isReport = true"
+        @click="onReport"
       />
     </template>
   </VanNavBar>

@@ -2,6 +2,7 @@
   import Head from '@/assets/public/Head.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { useDetail } from '@/hooks/useDetail'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useUserStore } from '@/stores'
 
   defineOptions({
@@ -11,6 +12,7 @@
   const { reportIcon, addIcon, messageIcon, detailLikeIcon, likeIcon } =
     useAppImgStyle()
   const { userInfo } = useUserStore()
+  const { guardGuestAction } = useGuestLimit()
   const {
     loding,
     dynamicInfo,
@@ -64,7 +66,7 @@
       height="100%"
       @click="togglePlay"
     />
-    <div class="gradient-overlay"></div>
+    <div class="gradient-overlay" />
     <van-icon
       v-if="!isPlaying"
       :name="isPlaying ? 'pause-circle' : 'play-circle'"
@@ -121,11 +123,11 @@
               absolute
               :src="addIcon"
               fit="cover"
-              @click="onFollow"
               :style="{
                 width: 'var(--video-details-follow-width)',
                 height: 'var(--video-details-follow-height)'
               }"
+              @click="onFollow"
             />
           </div>
           <ul ml-3 shrink w-full>
@@ -147,7 +149,12 @@
             width: 'var(--report-image-width)',
             height: 'var(--report-image-height)'
           }"
-          @click="isReport = true"
+          @click="
+            () => {
+              if (guardGuestAction()) return
+              isReport = true
+            }
+          "
         />
       </div>
     </div>

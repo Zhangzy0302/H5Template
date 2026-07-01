@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
+  import { closeToast, showLoadingToast, showSuccessToast } from 'vant'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
 
@@ -9,6 +10,7 @@
 
   const { winReportListData } = useWindow()
   const { onBack } = useJump()
+  const { isGuest, guardGuestAction } = useGuestLimit()
   const router = useRouter()
   const route = useRoute()
 
@@ -27,6 +29,8 @@
   })
 
   const onSubmlt = async () => {
+    if (guardGuestAction()) return
+
     // 1. 显示 Loading
     showLoadingToast({
       message: 'Submitting...',
@@ -60,7 +64,7 @@
           })
         }
       }, 1000)
-    } catch (error) {
+    } catch {
       // 如果失败，也要关 Loading
       closeToast()
     }
@@ -73,32 +77,43 @@
       <li
         v-for="(item, index) in winReportListData"
         :key="index"
-        @click="formData.select = index"
+        @click="
+          () => {
+            if (guardGuestAction()) return
+            formData.select = index
+          }
+        "
       >
         <span>{{ item.reportContext }}</span>
 
         <div class="selected-icon">
           <div
-            class="success-icon"
             v-if="formData.select === index"
-          ></div>
+            class="success-icon"
+          />
         </div>
       </li>
     </ul>
     <!-- 输入框 -->
     <div>
       <div ai-input-title>Supplementary description</div>
-      <text-box v-model="formData.title" rows="3" bg="#231e24" />
+      <text-box
+        v-model="formData.title"
+        rows="3"
+        bg="#231e24"
+        :readonly="isGuest"
+        @click="guardGuestAction"
+      />
     </div>
 
     <!-- 底部按钮 -->
     <div pt="32px" pb="40px" flex justify-center>
       <GhwuadUdoahjfButton
-        @click="onSubmlt"
         :width="182"
         :height="46"
         :is-blue="true"
         text="Submit"
+        @click="onSubmlt"
       />
     </div>
   </div>

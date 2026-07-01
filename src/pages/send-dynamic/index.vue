@@ -1,14 +1,15 @@
 <script setup lang="ts">
   import {
+    closeToast,
     showLoadingToast,
     showSuccessToast,
-    showToast,
-    closeToast
+    showToast
   } from 'vant'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
-  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
 
   defineOptions({
     name: 'SendDynamic'
@@ -16,6 +17,7 @@
 
   const { userInfo } = useUserStore()
   const { appParams } = useJump()
+  const { isGuest, guardGuestAction } = useGuestLimit()
   const { winDynamicData, winPublishImageListData } = useWindow()
   const listData = ref<DynamicInfo[]>(winDynamicData)
 
@@ -28,6 +30,8 @@
   })
 
   const onSubmit = async () => {
+    if (guardGuestAction()) return
+
     if (!formData.dynamicDesc) {
       return showToast('Please enter the content')
     }
@@ -85,7 +89,11 @@
 <template>
   <div safe-area-inset-top px-layout-padding class="send-dynamic_box">
     <!-- 输入框 -->
-    <text-box v-model="formData.dynamicDesc" />
+    <text-box
+      v-model="formData.dynamicDesc"
+      :readonly="isGuest"
+      @click="guardGuestAction"
+    />
 
     <div mt-9 flex flex-col>
       <!-- 主题选项 -->
@@ -105,7 +113,12 @@
                   ? '1px solid white'
                   : ''
             }"
-            @click="formData.dynamicTitleType = item.value"
+            @click="
+              () => {
+                if (guardGuestAction()) return
+                formData.dynamicTitleType = item.value
+              }
+            "
           >
             {{ item.name }}
           </li>
@@ -114,7 +127,12 @@
       <!-- 图片上传 -->
       <div mt-6>
         <div ai-input-title>Upload(Pic)</div>
-        <uploader-box v-model:list="formData.dynamicPic" />
+        <div @click.capture="guardGuestAction">
+          <uploader-box
+            v-model:list="formData.dynamicPic"
+            :disabled="isGuest"
+          />
+        </div>
       </div>
 
       <!-- 底部按钮 -->

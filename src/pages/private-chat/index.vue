@@ -6,11 +6,13 @@
   import VideoIcon from '@/assets/public/video-icon.png'
   import { detailId } from '@/hooks/useDetail'
   import { useFile } from '@/hooks/useFile'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
 
   const { onBack, appParams, jumpToCall, queryId } = useJump()
+  const { guardGuestAction } = useGuestLimit()
   const { winChatListData, winMessageData, winUserListData } = useWindow()
 
   const { userInfo } = useUserStore()
@@ -75,6 +77,7 @@
   }
 
   const onSend = (sendContent: string, state: 0 | 1 = 0) => {
+    if (guardGuestAction()) return
     if (!sendContent.trim()) return
     const item: MessageInfo = {
       msgId: `${Date.now()}_m`,
@@ -111,6 +114,22 @@
     console.log('上传成功回调:', e)
     onSend(e, 1)
   })
+
+  const onPickImage = () => {
+    if (guardGuestAction()) return
+    clickElement()
+  }
+
+  const onCall = () => {
+    if (guardGuestAction()) return
+    jumpToCall(viewInfo.value.userId, queryId.value)
+  }
+
+  const onReport = () => {
+    if (guardGuestAction()) return
+    detailId.value = viewInfo.value.userId
+    isReport.value = true
+  }
 
   onMounted(() => {
     getData()
@@ -150,24 +169,19 @@
           </div>
         </template>
         <template #right>
-          <van-image :src="ImgIcon" h-6 w-6 @click="clickElement" />
+          <van-image :src="ImgIcon" h-6 w-6 @click="onPickImage" />
           <van-image
             mx-6
             :src="VideoIcon"
             h-6
             w-6
-            @click="jumpToCall(viewInfo.userId, queryId)"
+            @click="onCall"
           />
           <van-image
             :src="RightMore"
             h-6
             w-6
-            @click="
-              () => {
-                detailId = viewInfo.userId
-                isReport = true
-              }
-            "
+            @click="onReport"
           />
         </template>
       </VanNavBar>

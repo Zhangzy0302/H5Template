@@ -10,11 +10,13 @@
       maxlength?: string | number
       rows?: string | number
       bg?: string
+      readonly?: boolean
     }>(),
     {
       maxlength: 150,
       rows: 6,
-      bg: '#0e080f'
+      bg: '#0e080f',
+      readonly: false
     }
   )
 </script>
@@ -28,6 +30,7 @@
       :maxlength="props.maxlength"
       placeholder="Please enter"
       show-word-limit
+      :readonly="props.readonly"
     />
     <!-- :style="{ background: props.bg }" -->
   </div>

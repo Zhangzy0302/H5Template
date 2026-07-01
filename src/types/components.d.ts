@@ -19,6 +19,7 @@ declare module 'vue' {
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     GhwuadUdoahjfButton: typeof import('./../components/GhwuadUdoahjfButton.vue')['default']
     GueButton: typeof import('./../components/GueButton.vue')['default']
+    GuestLimitDialog: typeof import('./../components/GuestLimitDialog.vue')['default']
     InputBox: typeof import('./../components/InputBox.vue')['default']
     MyList: typeof import('./../components/MyList.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']

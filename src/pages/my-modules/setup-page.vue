@@ -1,14 +1,16 @@
 <script setup lang="ts">
   import type { AppCommunication } from '@/hooks/useJump'
   import RightIcon from '@/assets/images/joii_icon_arrow_right.png'
-  import { useJump } from '@/hooks/useJump'
   import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
+  import { useJump } from '@/hooks/useJump'
 
   defineOptions({
     name: 'SetupPage'
   })
 
   const { appParams, jumpToUserAgreement, jumpToBlackList } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   const listData = [
     { label: 'Privacy Agreement', value: '0' },
@@ -17,11 +19,13 @@
   ]
 
   const onState = (key: AppCommunication) => {
+    if (guardGuestAction()) return
     appParams({ key, state: 2 })
   }
 
   const onSelect = (value: string) => {
     if (value === '2') {
+      if (guardGuestAction()) return
       jumpToBlackList()
     }
     if (value === '0') {
@@ -53,20 +57,20 @@
     <div flex flex-col items-center gap="16px" mt-auto pb="40px">
       <div>
         <GhwuadUdoahjfButton
-          @click="onState('deleteaccount')"
           :width="182"
           :height="46"
           :is-blue="false"
           text="Delete account"
+          @click="onState('deleteaccount')"
         />
       </div>
       <div>
         <GhwuadUdoahjfButton
-          @click="onState('logout')"
           :width="182"
           :height="46"
           :is-blue="false"
           text="Log out"
+          @click="onState('logout')"
         />
       </div>
     </div>

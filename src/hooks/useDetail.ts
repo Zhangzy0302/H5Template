@@ -1,4 +1,5 @@
 import { useUserStore } from '@/stores'
+import { useGuestLimit } from './useGuestLimit'
 import { useJump } from './useJump'
 import { useWindow } from './useWindow'
 
@@ -9,6 +10,7 @@ export const detailId = ref('')
 export const useDetail = () => {
   const router = useRouter()
   const { queryId, appParams } = useJump()
+  const { guardGuestAction } = useGuestLimit()
   const { userInfo } = useUserStore()
   const { winCommentData, winDynamicData, winUserListData } = useWindow()
 
@@ -75,9 +77,10 @@ export const useDetail = () => {
   /**
    * 发送功能
    * @param v 内容
-   * @param type 0:图片 1:视频
+   * @param _ 0:图片 1:视频
    */
   const onSend = (v: string, _: 0 | 1 = 0) => {
+    if (guardGuestAction()) return
     if (v) {
       const id = Date.now()
       const item: CommentInfo = {
@@ -106,6 +109,8 @@ export const useDetail = () => {
    * 图片点赞
    */
   const onLike = () => {
+    if (guardGuestAction()) return
+
     if (isLike.value) {
       userInfo.picPostLikeIds = userInfo.picPostLikeIds.filter(v => v !== queryId.value)
       dynamicInfo.value.dynamicLikeCount -= 1
@@ -133,6 +138,8 @@ export const useDetail = () => {
 
   /** 视频点赞 */
   const onVideoLike = () => {
+    if (guardGuestAction()) return
+
     if (isVideoLike.value) {
       userInfo.videoPostLikeIds = userInfo.videoPostLikeIds.filter(v => v !== queryId.value)
       dynamicInfo.value.dynamicLikeCount -= 1
@@ -160,6 +167,8 @@ export const useDetail = () => {
 
   /** 点击关注 */
   const onFollow = () => {
+    if (guardGuestAction()) return
+
     if (userInfo.userId !== dynamicInfo.value.userId) {
       if (!userInfo.follow.includes(dynamicInfo.value.userId)) {
         userInfo.follow.push(dynamicInfo.value.userId)

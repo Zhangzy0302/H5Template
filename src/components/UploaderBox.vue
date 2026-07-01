@@ -15,10 +15,12 @@
     defineProps<{
       accept?: 'image' | 'video'
       maxCount?: number
+      disabled?: boolean
     }>(),
     {
       accept: 'image',
-      maxCount: 9
+      maxCount: 9,
+      disabled: false
     }
   )
 
@@ -73,6 +75,7 @@
       :preview-full-image="isImage"
       :multiple="props.maxCount > 1"
       :max-count="props.maxCount"
+      :disabled="props.disabled"
       :upload-icon="isImage ? 'plus' : 'plus'"
       :after-read="afterRead"
     >

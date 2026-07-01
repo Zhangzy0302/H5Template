@@ -3,6 +3,7 @@
   import Head from '@/assets/public/Head.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { detailId } from '@/hooks/useDetail'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -19,6 +20,7 @@
   } = useAppImgStyle()
   const { queryId, jumpToDetail, appParams, jumpToPrivateChat } =
     useJump()
+  const { guardGuestAction } = useGuestLimit()
   const {
     winUserListData,
     winDynamicData,
@@ -56,6 +58,8 @@
   }
 
   const onFollow = () => {
+    if (guardGuestAction()) return
+
     useData.userInfo.follow.push(userInfo.value.userId)
     userInfo.value.fans.push(useData.userInfo.userId)
     allUserList.value.forEach(v => {
@@ -83,6 +87,8 @@
   }
 
   const onAddChat = () => {
+    if (guardGuestAction()) return
+
     const chatItem = winChatListData.find(v => {
       return (
         v.chatUserIds.includes(userInfo.value.userId) &&
@@ -126,6 +132,12 @@
     // 不显示自己
     return item.userId !== useData.userInfo.userId
   }
+
+  const onReportPost = (item: DynamicInfo) => {
+    if (guardGuestAction()) return
+    isReport.value = true
+    detailId.value = item.userId
+  }
 </script>
 
 <template>
@@ -148,11 +160,11 @@
             absolute
             :src="otherHomeAddIcon"
             fit="cover"
-            @click="onFollow"
             :style="{
               width: 'var(--other-home-follow-width)',
               height: 'var(--other-home-follow-height)'
             }"
+            @click="onFollow"
           />
         </div>
         <span mt-1 color="white" fw-600 font-size="16px">
@@ -203,7 +215,7 @@
           <li>
             <van-image round ai-avatar :src="Head" fit="cover" />
             <span mx-2 ai-user-name>Apien</span>
-            <span ai-tag-btn class="tag" v-if="item.dynamicType === 0">
+            <span v-if="item.dynamicType === 0" ai-tag-btn class="tag">
               # {{ winPublishImageListData[item?.dynamicTitleType].name }}
             </span>
           </li>
@@ -216,12 +228,7 @@
                 width: 'var(--report-image-width)',
                 height: 'var(--report-image-height)'
               }"
-              @click.stop="
-                () => {
-                  isReport = true
-                  detailId = item.userId
-                }
-              "
+              @click.stop="onReportPost(item)"
             />
           </li>
         </ul>

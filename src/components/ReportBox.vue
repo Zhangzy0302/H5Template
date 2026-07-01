@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { showLoadingToast, showSuccessToast, closeToast } from 'vant'
+  import { closeToast, showLoadingToast, showSuccessToast } from 'vant'
   import { detailId } from '@/hooks/useDetail'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -16,10 +17,13 @@
   const { winUserListData } = useWindow()
   const { userInfo } = useUserStore()
   const { appParams } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   const allUserList = ref<UserInfo[]>(winUserListData)
 
   const onReport = () => {
+    if (guardGuestAction()) return
+
     router
       .replace({
         path: '/report-index',
@@ -31,6 +35,8 @@
   }
 
   const onShield = async () => {
+    if (guardGuestAction()) return
+
     // 1. 显示 Loading（手动关闭）
     showLoadingToast({
       message: 'Blocking...',
@@ -72,7 +78,7 @@
         })
         show.value = false
       }, 1000)
-    } catch (e) {
+    } catch {
       closeToast()
     }
   }
@@ -81,7 +87,7 @@
 <template>
   <van-popup v-model:show="show" position="bottom">
     <div position="relative">
-      <div class="report-box_bg"></div>
+      <div class="report-box_bg" />
       <ul class="report-box">
         <!-- 拖拽条 -->
         <div class="drag-handle" />
@@ -93,11 +99,11 @@
         </li>
         <li>
           <GhwuadUdoahjfButton
-            @click="show = false"
             :width="182"
             :height="46"
             :is-blue="true"
             text="Cancel"
+            @click="show = false"
           />
         </li>
       </ul>

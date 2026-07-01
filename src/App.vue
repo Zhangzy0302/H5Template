@@ -55,6 +55,7 @@ onMounted(() => {
       </section>
     </router-view>
     <tab-bar />
+    <guest-limit-dialog />
   </van-config-provider>
 </template>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import axios from 'axios'
   import CryptoJS from 'crypto-js'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useUserStore } from '@/stores'
 
   defineOptions({
@@ -8,6 +9,7 @@
   })
 
   const { userInfo } = useUserStore()
+  const { guardGuestAction } = useGuestLimit()
 
   // ai 回复下标
   const aiIndex = ref(0)
@@ -45,6 +47,7 @@
   )
 
   const onSend = async (v: string) => {
+    if (guardGuestAction()) return
     if (!isAllLoaded.value) return
     // 要发送的原始数据
     const originalData = {

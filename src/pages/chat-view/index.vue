@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import MasonryIcon from '@/assets/images/joii_wallet_diamond.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -13,11 +14,14 @@
   const { winUserData, winUserListData, winChatBotDesc } = useWindow()
   const { userInfo } = useUserStore()
   const { jumpToRecharge, appParams, jumpToChatDetail } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   /** 弹框  */
   const show = ref(false)
 
   const onSubmit = () => {
+    if (guardGuestAction()) return
+
     show.value = !(userInfo.coins >= winChatBotDesc.points)
     if (userInfo.coins >= winChatBotDesc.points) {
       const data = {
@@ -98,7 +102,12 @@
             :height="60"
             :is-blue="true"
             text="Recharge"
-            @click="jumpToRecharge()"
+            @click="
+              () => {
+                if (guardGuestAction()) return
+                jumpToRecharge()
+              }
+            "
           />
         </div>
       </div>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import {
+    closeToast,
     showLoadingToast,
     showSuccessToast,
-    showToast,
-    closeToast
+    showToast
   } from 'vant'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -16,6 +17,7 @@
   const { userInfo } = useUserStore()
   const { winDynamicData } = useWindow()
   const { appParams } = useJump()
+  const { isGuest, guardGuestAction } = useGuestLimit()
 
   const listData = ref<DynamicInfo[]>(winDynamicData)
 
@@ -28,6 +30,8 @@
   })
 
   const onSubmit = async () => {
+    if (guardGuestAction()) return
+
     if (!formData.dynamicDesc) {
       return showToast('Please enter the content')
     }
@@ -83,16 +87,25 @@
 
 <template>
   <div px-layout-padding class="publish-video_box">
-    <text-box v-model="formData.dynamicDesc" maxlength="50" rows="3" />
+    <text-box
+      v-model="formData.dynamicDesc"
+      maxlength="50"
+      rows="3"
+      :readonly="isGuest"
+      @click="guardGuestAction"
+    />
 
     <!-- 视频上传 -->
     <div>
       <div ai-input-title mt="24px">Upload(video)</div>
-      <uploader-box
-        v-model:list="formData.dynamicPic"
-        :max-count="1"
-        accept="video"
-      />
+      <div @click.capture="guardGuestAction">
+        <uploader-box
+          v-model:list="formData.dynamicPic"
+          :max-count="1"
+          :disabled="isGuest"
+          accept="video"
+        />
+      </div>
     </div>
 
     <!-- 输入框 -->
@@ -104,11 +117,11 @@
     <!-- 底部按钮 -->
     <div mt-auto pb="40px" flex justify-center>
       <GhwuadUdoahjfButton
-        @click="onSubmit"
         :width="182"
         :height="46"
         :is-blue="true"
         text="Release"
+        @click="onSubmit"
       />
     </div>
   </div>

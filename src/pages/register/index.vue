@@ -3,7 +3,6 @@
   import defaultAvatar from '@/assets/images/default-avatar.svg'
   import editIcon from '@/assets/images/joii_icon_up_avatar.png'
   import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
-  import { useFile } from '@/hooks/useFile'
 
   defineOptions({
     name: 'Register'
@@ -12,15 +11,82 @@
   type Gender = 'male' | 'female'
 
   const REGISTER_HANDLER = 'registerUser'
+  const DEFAULT_BIRTHDAY = '2003-01-01'
 
   const formData = reactive({
     nickname: '',
-    birthday: '2003-01-01',
+    birthday: DEFAULT_BIRTHDAY,
     location: '',
     gender: 'female' as Gender
   })
 
-  const { imgUrl, clickElement } = useFile()
+  const avatarInputRef = ref<HTMLInputElement>()
+  const avatarPreview = ref('')
+  const avatarBase64 = ref('')
+  const avatarFileName = ref('')
+
+  const showBirthdayPicker = ref(false)
+  const birthdayValues = ref(DEFAULT_BIRTHDAY.split('-'))
+  const minBirthday = new Date(1900, 0, 1)
+  const maxBirthday = new Date()
+
+  const showLocationPicker = ref(false)
+  const locationValues = ref(['Los Angeles'])
+  const locationColumns = [
+    { text: 'Los Angeles', value: 'Los Angeles' },
+    { text: 'New York', value: 'New York' },
+    { text: 'Miami', value: 'Miami' },
+    { text: 'Chicago', value: 'Chicago' },
+    { text: 'San Francisco', value: 'San Francisco' }
+  ]
+
+  const openAvatarPicker = () => {
+    avatarInputRef.value?.click()
+  }
+
+  const onAvatarChange = (event: Event) => {
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+
+    if (!file) {
+      return
+    }
+
+    if (!file.type.startsWith('image/')) {
+      showToast('Please select an image')
+      input.value = ''
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      const result = reader.result as string
+      avatarPreview.value = result
+      avatarBase64.value = result
+      avatarFileName.value = file.name
+    }
+    reader.onerror = () => {
+      showToast('Image loading failed')
+    }
+    reader.readAsDataURL(file)
+    input.value = ''
+  }
+
+  const onBirthdayConfirm = (event: { selectedValues?: string[] }) => {
+    const values = event.selectedValues || birthdayValues.value
+    formData.birthday = values.join('-')
+    birthdayValues.value = values
+    showBirthdayPicker.value = false
+  }
+
+  const onLocationConfirm = (event: {
+    selectedOptions?: Array<{ text?: string, value?: string }>
+  }) => {
+    const option = event.selectedOptions?.[0]
+    formData.location = option?.value || option?.text || locationValues.value[0]
+    locationValues.value = [formData.location]
+    showLocationPicker.value = false
+  }
 
   const onSubmit = async () => {
     const payload = {
@@ -28,7 +94,8 @@
       birthday: formData.birthday,
       location: formData.location.trim(),
       gender: formData.gender,
-      avatar: imgUrl.value
+      avatar: avatarBase64.value,
+      avatarFileName: avatarFileName.value
     }
 
     try {
@@ -42,14 +109,26 @@
 
 <template>
   <div safe-area-inset-top class="register-page">
-    <div class="register-page__glow"></div>
+    <div class="register-page__glow" />
 
     <div class="register-page__content">
-      <button class="register-page__avatar" type="button" @click="clickElement">
+      <input
+        ref="avatarInputRef"
+        class="register-page__avatar-input"
+        type="file"
+        accept="image/*"
+        @change="onAvatarChange"
+      />
+
+      <button
+        class="register-page__avatar"
+        type="button"
+        @click="openAvatarPicker"
+      >
         <van-image
           round
           class="register-page__avatar-img"
-          :src="imgUrl || defaultAvatar"
+          :src="avatarPreview || defaultAvatar"
           fit="cover"
         />
         <van-image
@@ -76,6 +155,9 @@
             v-model="formData.birthday"
             placeholder="2003-01-01"
             class="public-input register-page__input"
+            readonly
+            is-link
+            @click="showBirthdayPicker = true"
           />
         </div>
 
@@ -83,8 +165,11 @@
           <div ai-input-title class="register-page__label">Location</div>
           <van-field
             v-model="formData.location"
-            placeholder="La"
+            placeholder="Please select"
             class="public-input register-page__input"
+            readonly
+            is-link
+            @click="showLocationPicker = true"
           />
         </div>
 
@@ -115,6 +200,27 @@
         <GhwuadUdoahjfButton :width="200" text="Next" @click="onSubmit" />
       </div>
     </div>
+
+    <van-popup v-model:show="showBirthdayPicker" position="bottom" round>
+      <van-date-picker
+        v-model="birthdayValues"
+        title="Birthday"
+        :min-date="minBirthday"
+        :max-date="maxBirthday"
+        @confirm="onBirthdayConfirm"
+        @cancel="showBirthdayPicker = false"
+      />
+    </van-popup>
+
+    <van-popup v-model:show="showLocationPicker" position="bottom" round>
+      <van-picker
+        v-model="locationValues"
+        title="Location"
+        :columns="locationColumns"
+        @confirm="onLocationConfirm"
+        @cancel="showLocationPicker = false"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -155,6 +261,10 @@
     margin: 0 auto 34px;
     background: transparent;
     border: 0;
+  }
+
+  .register-page__avatar-input {
+    display: none;
   }
 
   .register-page__avatar-img {

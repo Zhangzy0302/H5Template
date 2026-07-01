@@ -1,12 +1,13 @@
 <script setup lang="ts">
-  import { showSuccessToast, showLoadingToast, closeToast } from 'vant'
+  import { closeToast, showLoadingToast, showSuccessToast } from 'vant'
   import { reactive } from 'vue'
   import upImg from '@/assets/images/joii_icon_up_avatar.png'
+  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
   import { useFile } from '@/hooks/useFile'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
-  import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
 
   defineOptions({
     name: 'EditInfo'
@@ -14,6 +15,7 @@
 
   const { userInfo } = useUserStore()
   const { imgUrl, clickElement } = useFile()
+  const { isGuest, guardGuestAction } = useGuestLimit()
   const { winUserListData } = useWindow()
   const { appParams } = useJump()
 
@@ -32,6 +34,8 @@
   })
 
   const onSubmit = async () => {
+    if (guardGuestAction()) return
+
     // 1. 显示 Loading
     showLoadingToast({
       message: 'Saving...',
@@ -76,6 +80,11 @@
       })
     }, 1000)
   }
+
+  const onPickAvatar = () => {
+    if (guardGuestAction()) return
+    clickElement()
+  }
 </script>
 
 <template>
@@ -88,7 +97,7 @@
         w-20
         :src="imgUrl || userInfo.avator"
         fit="cover"
-        @click="clickElement"
+        @click="onPickAvatar"
       />
       <van-image
         round
@@ -99,7 +108,7 @@
         absolute
         :src="upImg"
         fit="cover"
-        @click="clickElement"
+        @click="onPickAvatar"
       />
     </div>
 
@@ -109,6 +118,8 @@
         v-model="formData.name"
         placeholder="Please enter"
         class="public-input"
+        :readonly="isGuest"
+        @click="guardGuestAction"
       />
     </div>
 
@@ -118,6 +129,8 @@
         v-model="formData.about"
         placeholder="Please enter"
         class="public-input"
+        :readonly="isGuest"
+        @click="guardGuestAction"
       />
     </div>
 

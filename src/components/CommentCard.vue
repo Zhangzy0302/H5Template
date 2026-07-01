@@ -2,10 +2,12 @@
   import Head from '@/assets/public/Head.png'
   import { useAppImgStyle } from '@/hooks/useAppImgStyle'
   import { detailId } from '@/hooks/useDetail'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useUserStore } from '@/stores'
 
   const { reportIcon } = useAppImgStyle()
   const { userInfo } = useUserStore()
+  const { guardGuestAction } = useGuestLimit()
 
   const props = withDefaults(
     defineProps<{
@@ -18,6 +20,12 @@
 
   // 举报弹框
   const isReport = ref(false)
+
+  const onReport = (item: CommentInfo) => {
+    if (guardGuestAction()) return
+    isReport.value = true
+    detailId.value = item.userId
+  }
 </script>
 
 <template>
@@ -46,12 +54,7 @@
               width: 'var(--report-image-width)',
               height: 'var(--report-image-height)'
             }"
-            @click="
-              () => {
-                isReport = true
-                detailId = item.userId
-              }
-            "
+            @click="onReport(item)"
           />
         </li>
       </ul>

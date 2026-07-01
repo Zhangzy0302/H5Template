@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import MyIcon from '@/assets/images/joii_wallet_dimond_icon.png'
   import GhwuadUdoahjfButton from '@/components/GhwuadUdoahjfButton.vue'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
   import { useUserStore } from '@/stores'
@@ -12,12 +13,14 @@
   const { userInfo } = useUserStore()
   const { winCoinData } = useWindow()
   const { appParams } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   const formData = reactive({
     radio: winCoinData[0]?.key
   })
 
   const onRecharge = () => {
+    if (guardGuestAction()) return
     appParams({ key: 'Recharge', value: formData.radio, state: 1 })
   }
 </script>
@@ -40,7 +43,12 @@
           v-for="item in winCoinData"
           :key="item.key"
           :class="{ 'on-active': formData.radio === item.key }"
-          @click="formData.radio = item.key"
+          @click="
+            () => {
+              if (guardGuestAction()) return
+              formData.radio = item.key
+            }
+          "
         >
           <p>
             <van-image h-4 w-5 :src="MyIcon" fit="cover" />

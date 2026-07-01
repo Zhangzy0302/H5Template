@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import Head from '@/assets/public/Head.png'
+  import { useGuestLimit } from '@/hooks/useGuestLimit'
   import { useJump } from '@/hooks/useJump'
   import { useWindow } from '@/hooks/useWindow'
 
   const { winUserListData } = useWindow()
   const { queryId, appParams } = useJump()
+  const { guardGuestAction } = useGuestLimit()
 
   const listData = ref<UserInfo[]>([])
   const allListUser = ref<UserInfo[]>(winUserListData)
@@ -45,6 +47,8 @@
   }
 
   const onClick = (id: string, index: number) => {
+    if (guardGuestAction()) return
+
     const keyData = {
       follow: 'follow',
       fans: 'fans',
