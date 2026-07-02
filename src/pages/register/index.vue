@@ -154,7 +154,7 @@
           <van-field
             v-model="formData.birthday"
             placeholder="2003-01-01"
-            class="public-input register-page__input"
+            class="public-input register-page__input register-page__select-input"
             readonly
             is-link
             @click="showBirthdayPicker = true"
@@ -166,7 +166,7 @@
           <van-field
             v-model="formData.location"
             placeholder="Please select"
-            class="public-input register-page__input"
+            class="public-input register-page__input register-page__select-input"
             readonly
             is-link
             @click="showLocationPicker = true"
@@ -306,6 +306,16 @@
       height: 100%;
       font-size: 15px;
       line-height: 52px;
+    }
+  }
+
+  .register-page__select-input {
+    :deep(.van-cell__right-icon) {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      margin-top: 0;
+      line-height: 1;
     }
   }
 

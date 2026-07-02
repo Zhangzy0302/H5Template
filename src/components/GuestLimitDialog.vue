@@ -13,6 +13,7 @@
 <template>
   <van-overlay
     :show="showGuestLimitDialog"
+    :z-index="4000"
     class-name="guest-limit-overlay"
     :lock-scroll="true"
   >
@@ -51,6 +52,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 4000 !important;
     background: rgba(0, 0, 0, 0.7);
   }
 

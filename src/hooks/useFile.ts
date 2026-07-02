@@ -121,7 +121,10 @@ export const useFile = (cb?: UploadSuccessCallback) => {
     }
 
     function base64ToBlob(base64: string, mime: string) {
-      const byteString = atob(base64.split(',')[1])
+      const base64Body = base64.includes(',')
+        ? base64.split(',')[1]
+        : base64
+      const byteString = atob(base64Body)
       const ab = new ArrayBuffer(byteString.length)
       const ia = new Uint8Array(ab)
       for (let i = 0; i < byteString.length; i++) {
