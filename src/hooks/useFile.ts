@@ -26,6 +26,41 @@ export const useFile = (cb?: UploadSuccessCallback) => {
   /** 图片链接 */
   const imgUrl = ref('')
 
+  const createFallbackCoverBlob = () => {
+    const canvas = document.createElement('canvas')
+    const width = 640
+    const height = 360
+    canvas.width = width
+    canvas.height = height
+
+    const ctx = canvas.getContext('2d')
+    if (ctx) {
+      const gradient = ctx.createLinearGradient(0, 0, width, height)
+      gradient.addColorStop(0, '#1d00d9')
+      gradient.addColorStop(1, '#975de3')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, width, height)
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+      ctx.beginPath()
+      ctx.moveTo(width / 2 - 36, height / 2 - 52)
+      ctx.lineTo(width / 2 - 36, height / 2 + 52)
+      ctx.lineTo(width / 2 + 54, height / 2)
+      ctx.closePath()
+      ctx.fill()
+    }
+
+    return new Promise<Blob>(resolve => {
+      canvas.toBlob(
+        blob => {
+          resolve(blob || new Blob([], { type: 'image/jpeg' }))
+        },
+        'image/jpeg',
+        0.86
+      )
+    })
+  }
+
   /**
    * 获取 STS 临时凭证
    */
@@ -46,7 +81,11 @@ export const useFile = (cb?: UploadSuccessCallback) => {
     item.status = 'uploading'
     item.message = 'Uploading...'
     const file = item.file
-    const sts: stsTypeData = stsData.value
+    if (!file) {
+      throw new Error('文件不存在')
+    }
+
+    const sts: stsTypeData = stsData.value || await getSTS()
     const [https, endpoint] = sts.host.split(`${sts.bucket}.`)
     const client = new OSS({
       accessKeyId: sts.AccessKeyId,
@@ -73,10 +112,10 @@ export const useFile = (cb?: UploadSuccessCallback) => {
         return result.url.replace(/^http:\/\//, https)
       }
 
-      // 等待 Flutter 返回封面
-      const coverBlob: Blob = await new Promise((resolve, reject) => {
+      // 等待封面；封面失败时使用兜底图，不阻断视频上传
+      const coverBlob: Blob = await new Promise(resolve => {
         const timeout = setTimeout(() => {
-          reject(new Error('获取封面超时'))
+          createFallbackCoverBlob().then(resolve)
         }, 10000) // 10秒超时
 
         const handler = (e: any) => {
@@ -84,11 +123,14 @@ export const useFile = (cb?: UploadSuccessCallback) => {
           clearTimeout(timeout)
           const { cover } = e.detail
           if (cover) {
-            const blob = base64ToBlob(cover, 'image/jpeg')
-            resolve(blob)
-          } else {
-            reject(new Error('Flutter 处理封面失败'))
+            try {
+              resolve(base64ToBlob(cover, 'image/jpeg'))
+              return
+            } catch (error) {
+              console.warn('视频封面解析失败，使用兜底封面', error)
+            }
           }
+          createFallbackCoverBlob().then(resolve)
         }
 
         window.addEventListener('video-cover-ready', handler)

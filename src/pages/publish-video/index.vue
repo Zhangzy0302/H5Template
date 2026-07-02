@@ -41,15 +41,24 @@
     if (formData.dynamicPic[0].status === 'uploading') {
       return showToast('Please wait for the video to upload')
     }
+    if (formData.dynamicPic[0].status === 'failed') {
+      return showToast('Video upload failed, please re-upload')
+    }
+
+    const videoUrl = formData.dynamicPic[0].url
+    const coverUrl = formData.dynamicPic[0].objectUrl
+    if (!videoUrl || !coverUrl) {
+      return showToast('Please wait for the video to upload')
+    }
 
     const data = {
       ...formData,
       dynamicTag: [],
-      dynamicVideo: formData.dynamicPic.map(v => v.url)[0],
+      dynamicVideo: videoUrl,
       dynamicLikeCount: 0,
       dynamicCommentCount: 0,
       dynamicId: `${Date.now()}_video`,
-      dynamicPic: [formData.dynamicPic.map(v => v.objectUrl)[0]]
+      dynamicPic: [coverUrl]
     } as DynamicInfo
 
     listData.value.unshift(data)

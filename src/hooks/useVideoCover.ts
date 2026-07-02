@@ -94,9 +94,20 @@ export function useVideoCover(): UseVideoCoverReturn {
       })
 
     try {
-      const base64Video = await fileToBase64(file)
+      try {
+        const coverBase64 = await getVideoCoverByBrowser(file)
+        dispatchCoverReady(coverBase64, file.name)
+        return
+      } catch (e) {
+        console.warn('浏览器生成视频封面失败，尝试 Flutter 兜底', e)
+      }
 
-      if ((window as any).flutter_inappwebview?.callHandler) {
+      const canUseFlutterCover =
+        file.size <= 8 * 1024 * 1024 &&
+        (window as any).flutter_inappwebview?.callHandler
+
+      if (canUseFlutterCover) {
+        const base64Video = await fileToBase64(file)
         const flutterCover = (
           window as any
         ).flutter_inappwebview.callHandler('generateVideoCover', base64Video)
@@ -116,8 +127,7 @@ export function useVideoCover(): UseVideoCoverReturn {
         }
       }
 
-      const coverBase64 = await getVideoCoverByBrowser(file)
-      dispatchCoverReady(coverBase64, file.name)
+      dispatchCoverReady(null, file.name)
     } catch (e: any) {
       console.error('[Web] extractCoverFromVideo error', e)
       error.value = e?.message ?? '未知错误'

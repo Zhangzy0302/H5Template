@@ -41,6 +41,12 @@
     if (formData.dynamicPic[0].status === 'uploading') {
       return showToast('Please wait for the picture to upload')
     }
+    if (formData.dynamicPic.some(v => v.status === 'failed')) {
+      return showToast('Picture upload failed, please re-upload')
+    }
+    if (formData.dynamicPic.some(v => !v.url)) {
+      return showToast('Please wait for the picture to upload')
+    }
 
     const data = {
       ...formData,
