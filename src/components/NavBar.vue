@@ -60,7 +60,7 @@ const { checkLogin } = useAuth()
       return t(`${route.meta.title}`)
     }
 
-    return t('navbar.Undefined')
+    return t('')
   })
 
   /**

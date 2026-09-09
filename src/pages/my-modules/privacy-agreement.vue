@@ -10,7 +10,7 @@
       <main class="policy-content">
         <section>
           <p class="intro">
-            The use of Folik through mobile applications may involve
+            The use of FokChat through mobile applications may involve
             collection and use of your information. This Privacy Policy
             explains how your information is collected, used and
             disclosed.
@@ -25,12 +25,12 @@
           <h2>1. Application Scope of this Privacy Policy</h2>
           <p>
             <strong>1.1</strong>
-            By using Folik, you agree that we may collect, use and share
+            By using FokChat, you agree that we may collect, use and share
             your information in accordance with this Privacy Policy.
           </p>
           <p>
             <strong>1.2</strong>
-            This Privacy Policy forms part of the Folik Terms of Service.
+            This Privacy Policy forms part of the FokChat Terms of Service.
           </p>
           <p>
             <strong>1.3</strong>
@@ -82,7 +82,7 @@
         <section>
           <h2>4. Children’s Information</h2>
           <p>
-            Folik is only available to users aged 18 or above. We do not
+            FokChat is only available to users aged 18 or above. We do not
             knowingly collect personal information from minors.
           </p>
         </section>
@@ -103,7 +103,7 @@
           <h2>6. Data Transfer and Storage</h2>
           <p>
             Your information may be transferred to and stored on servers
-            outside your jurisdiction. By using Folik, you consent to such
+            outside your jurisdiction. By using FokChat, you consent to such
             transfers.
           </p>
         </section>
@@ -166,7 +166,7 @@
             If you have any questions about this Privacy Policy, please
             contact us at:
           </p>
-          <p class="email">📧 Folik@Folik.site</p>
+          <p class="email">📧 FokChat@FokChat.site</p>
         </section>
       </main>
     </div>
